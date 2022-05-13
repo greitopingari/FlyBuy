@@ -18,6 +18,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+//addded
+using FlyBuy.ReCAPTCHA;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlyBuy.Areas.Identity.Pages.Account
 {
@@ -29,13 +32,19 @@ namespace FlyBuy.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        //added
+        private readonly GoogleCaptchaService _captchaService;
+
+       
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            //added
+            GoogleCaptchaService captchaService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -43,6 +52,8 @@ namespace FlyBuy.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            //added
+            _captchaService = captchaService;
         }
 
         /// <summary>
@@ -97,6 +108,10 @@ namespace FlyBuy.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [NotMapped]
+            public string Token { get; set; }
         }
 
 
@@ -110,6 +125,17 @@ namespace FlyBuy.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            //added
+            var captchaResult = await _captchaService.VerifyToken(Input.Token);
+
+            if (!captchaResult)
+            {
+                ModelState.AddModelError(string.Empty, "Register failed");
+                return Page();
+            }
+
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();

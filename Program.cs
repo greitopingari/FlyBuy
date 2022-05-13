@@ -1,6 +1,7 @@
 using FlyBuy.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using FlyBuy.ReCAPTCHA;
 
 var builder = WebApplication.CreateBuilder(args);
 //var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");;
@@ -20,6 +21,26 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthentication()
+    .AddGoogle(googleOptions =>
+    {
+        googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+        googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+    })
+    .AddLinkedIn(linkedinOptions =>
+    {
+        linkedinOptions.ClientId = builder.Configuration["Authentication:LinkedIn:ClientId"];
+        linkedinOptions.ClientSecret = builder.Configuration["Authentication:LinkedIn:ClientSecret"];
+    })
+    .AddFacebook(facebookOptions =>
+    {
+        facebookOptions.ClientId = builder.Configuration["Authentication:Facebook:ClientId"];
+        facebookOptions.ClientSecret = builder.Configuration["Authentication:Facebook:ClientSecret"];
+    });
+
+builder.Services.Configure<ReCAPTCHASettings>(builder.Configuration.GetSection("GoogleCAPTCHA"));
+builder.Services.AddTransient(typeof(GoogleCaptchaService));
 
 var app = builder.Build();
 
