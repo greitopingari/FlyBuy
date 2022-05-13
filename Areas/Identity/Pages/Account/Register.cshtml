@@ -8,61 +8,86 @@
 @using FlyBuy.ReCAPTCHA
 @inject IOptions<ReCAPTCHASettings> GoogleReCaptcha
 
-<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-    <div class="account-page">
-        <div class="container">
-
-            <div class="row register-row">
-                <div class="col-2">
-                    <div class="social-icons-external">
-                        <h4>Use another service to register.</h4>
-                    </div>
-                    <div class="social-icons">
-                        <i class="fa-brands fa-google"></i>
-                        <i class="fa-brands fa-facebook-f"></i>
-                        <i class="fa-brands fa-linkedin-in"></i>
-                    </div>
-                    <hr />
-                    <div class="form-container form-login">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                         <br />                              
-                        <div class="form-btn">
-                            <span>@ViewBag.Title your account</span>
-                        </div>
-                        <div class="form-control  form-control-2">
-                            <div class="from-group2 -re">
-                                <label asp-for="Input.Email"></label>
-                                <input asp-for="Input.Email" class="form-edit" autocomplete="username" aria-required="true" placeholder="Email..." />
-                                <span asp-validation-for="Input.Email" class="text-danger"></span>
-                            </div>
-                            <div class="from-group2 -re">
-                                <label asp-for="Input.Password"></label>
-                                <input asp-for="Input.Password" class="form-edit" autocomplete="new-password" aria-required="true" placeholder="Password..." />
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
-                            </div>                     
-                            <div class="from-group2 -re">
-                                <label asp-for="Input.ConfirmPassword"></label>
-                                <input asp-for="Input.ConfirmPassword" class="form-edit" autocomplete="new-password" aria-required="true" placeholder="Confirm Password..." />
-                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                            </div>
-
-                            <div class="from-group2 -re">                          
-                                <input type="hidden" asp-for="Input.Token" class="form-edit" autocomplete="new-password" aria-required="true" placeholder="Confirm Password..." id="tokenInput"/>
-                            </div>
-
-                             <div class="from-group2 -re -chaptcha">
-                                <div class="g-recaptcha" data-sitekey="6LcvzawfAAAAAFk5pErRs38DBmcxp6mYnU0Nzc0-" data-callback="callback" data-expired-callback="recaptchaExpired"></div>
-                                <button id="registerSubmit" type="submit" class="btn">Register</button>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
+ 
+<div class="account-page">
+    <div class="container">
+        <div class="row register-row">
+            <div class="col-2"> 
+                
+            <div class="social-icons-external">
+                <h4>Use another service to register.</h4>
             </div>
 
+            <div class="social-icons">
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    @foreach (var provider in Model.ExternalLogins)
+                        {
+                            if(provider.DisplayName== "Facebook")
+                            {
+                                <button class="externalBtn" type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fa-brands fa-facebook-f"></i></button>
+                            }
+                            if(provider.DisplayName== "Google")
+                            {
+                                <button class="externalBtn" type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fa-brands fa-google"></i></button>
+                            }
+                            if(provider.DisplayName== "LinkedIn")
+                            {
+                                    <button class="externalBtn" type="submit" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><i class="fa-brands fa-linkedin-in"></i></button>
+                            }
+                        }
+                    </form>
+            </div>
+                    
+            <hr />
+            <div class="form-container form-login">
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <br />
+                             
+                    <div class="form-btn">
+                        <span>@ViewBag.Title your account</span>
+                    </div>
+
+                    <div class="form-control  form-control-2">
+
+                        <div class="from-group2 -re">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-edit" autocomplete="username" aria-required="true" placeholder="Email..." />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="from-group2 -re">
+                            <label asp-for="Input.Password"></label>
+                            <input asp-for="Input.Password" class="form-edit" autocomplete="new-password" aria-required="true" placeholder="Password..." />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>                     
+                        <div class="from-group2 -re">
+                            <label asp-for="Input.ConfirmPassword"></label>
+                            <input asp-for="Input.ConfirmPassword" class="form-edit" autocomplete="new-password" aria-required="true" placeholder="Confirm Password..." />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="from-group2 -re">                          
+                            <input type="hidden" asp-for="Input.Token" class="form-edit" autocomplete="new-password" aria-required="true" placeholder="Confirm Password..." id="tokenInput"/>
+                        </div>
+
+                        <div class="from-group2 -re -chaptcha">
+                            <div class="g-recaptcha" data-sitekey="6LcvzawfAAAAAFk5pErRs38DBmcxp6mYnU0Nzc0-" data-callback="callback" data-expired-callback="recaptchaExpired"></div>
+                            <button id="registerSubmit" type="submit" class="btn">Register</button>
+                        </div> 
+                        <hr />
+                        <div class="from-group2 -re -login"> 
+                            <a asp-page="./LogIn" asp-route-returnUrl="@Model.ReturnUrl">Already have and account? LogIn</a>
+                        </div>
+                        <hr />
+                    </div>
+                </form>
+            </div>
+            </div>
         </div>
     </div>
-</form>
+</div>
+
 
 
 @section Scripts {
@@ -91,58 +116,3 @@
   </script>
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
-    </div>*@

@@ -1378,7 +1378,6 @@ nav ul li .free-delivery::after {
     margin: 20px 0;
     align-items: center;
     justify-content :center;
-    gap: 40px;
 }
 
 .social-icons i {
@@ -1387,6 +1386,7 @@ nav ul li .free-delivery::after {
     font-size: 30px;
     transition: 0.3s all ease-in-out;
     opacity: 0.7;
+    margin : 0 15px;    
 }
 
 .social-icons i:hover{
@@ -1428,4 +1428,39 @@ nav ul li .free-delivery::after {
 .-lg button {
     border: 1px solid #ff523b;
     text-transform: uppercase;
+}
+
+.externalBtn{
+    background-color: transparent;
+    border: none;
+}
+
+.-forgotP_Register{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.-forgotP_Register a{
+    text-decoration: none;
+    padding: 10px;
+    opacity: 0.7;
+    transition: all 0.3s ease-in-out;
+}
+
+.-forgotP_Register a:hover{
+    opacity:1;
+    transform : scale(1.1);
+}
+
+.-login a {
+    text-decoration: none;
+    padding: 10px;
+    opacity: 0.7;
+    transition: all 0.3s ease-in-out;
+}
+
+.-login a:hover {
+    opacity: 1;
+    transform: scale(1.1);
 }
