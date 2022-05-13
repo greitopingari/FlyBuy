@@ -1,6 +1,7 @@
 using FlyBuy.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using FlyBuy.ReCAPTCHA;
 
 var builder = WebApplication.CreateBuilder(args);
 //var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");;
@@ -20,6 +21,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.Configure<ReCAPTCHASettings>(builder.Configuration.GetSection("GoogleCAPTCHA"));
+builder.Services.AddTransient(typeof(GoogleCaptchaService));
 
 var app = builder.Build();
 
