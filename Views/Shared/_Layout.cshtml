@@ -24,7 +24,7 @@
 
             <div class="navbar navbarV2">
 
-                <h1 id="z-index" class="logo color-logo">FLY<span>  BUY</span></h1>
+                <a asp-controller="Home" asp-action="Index"><h1 id="z-index" class="logo color-logo">FLY<span>  BUY</span></h1></a> 
 
                 <div class="menus">
                     <div class="dropdown">
@@ -127,8 +127,19 @@
                         <li class="dropdown">
                             <a class="dropbtn"><i class="fa-solid fa-user"></i></a>
                             <div class="dropdown-content">
-                                <a asp-area="Identity" asp-page="/Account/Login">LOGIN</a>
-                                <a asp-area="Identity" asp-page="/Account/Register">REGISTER</a>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                        <button type="submit">LOG OFF</button>
+                                    </form>
+                                    <a asp-area="Identity" asp-page="/Account/Manage/Email" >PROFILE</a>
+                                }
+                                else
+                                {
+                                    <a asp-area="Identity" asp-page="/Account/Login">LOGIN</a>
+                                    <a asp-area="Identity" asp-page="/Account/Register">REGISTER</a>
+                                }
+                                
                             </div>
                         </li>
                         <li><a><i class="fa-solid fa-heart"></i></a></li>
