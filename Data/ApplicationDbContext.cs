@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using FlyBuy.Models;
 
 namespace FlyBuy.Data
 {
@@ -9,5 +10,8 @@ namespace FlyBuy.Data
             : base(options)
         {
         }
+
+        public DbSet<Rating> Ratings { get; set; }
+
     }
 }
