@@ -9,17 +9,30 @@
     }
 }
 
-<h1>Manage your account</h1>
+<div class="account-page account-page-2">
 
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
+    <div class="container">
+
+        <div class="social-icons-external">
+            <h2>Manage your account</h2>
+        </div>
+
+        <br />
+                        
+        <div class="profile-links">
             <partial name="_ManageNav" />
         </div>
-        <div class="col-md-9">
-            @RenderBody()
+
+    </div>
+
+</div>
+
+<div class="account-page">
+    <div class="container container-profile">  
+        <div class="row row-4">            
+            <div class="col-2">
+                @RenderBody()                  
+            </div>
         </div>
     </div>
 </div>

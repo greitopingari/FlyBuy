@@ -3,14 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FlyBuy</title>
-   @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <title>@ViewData["Title"] - Fly Buy</title>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    @*<link rel="stylesheet" href="~/FlyBuy.styles.css" asp-append-version="true" />*@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+
+    
 </head>
 <body>
     
@@ -24,7 +22,7 @@
 
             <div class="navbar navbarV2">
 
-                <h1 id="z-index" class="logo color-logo">FLY<span>  BUY</span></h1>
+                <a asp-controller="Home" asp-action="Index"><h1 id="z-index" class="logo color-logo">FLY<span>  BUY</span></h1></a> 
 
                 <div class="menus">
                     <div class="dropdown">
@@ -127,8 +125,19 @@
                         <li class="dropdown">
                             <a class="dropbtn"><i class="fa-solid fa-user"></i></a>
                             <div class="dropdown-content">
-                                <a asp-area="Identity" asp-page="/Account/Login">LOGIN</a>
-                                <a asp-area="Identity" asp-page="/Account/Register">REGISTER</a>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                        <button type="submit">LOG OFF</button>
+                                    </form>
+                                    <a asp-area="Identity" asp-page="/Account/Manage/Email" >PROFILE</a>
+                                }
+                                else
+                                {
+                                    <a asp-area="Identity" asp-page="/Account/Login">LOGIN</a>
+                                    <a asp-area="Identity" asp-page="/Account/Register">REGISTER</a>
+                                }
+                                
                             </div>
                         </li>
                         <li><a><i class="fa-solid fa-heart"></i></a></li>
@@ -182,16 +191,17 @@
 
    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-    <script src="~/js/CaptchaValidation.js"></script>
-     <script src="~/js/Typed.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="~/js/Typed.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     
-
+    
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
 

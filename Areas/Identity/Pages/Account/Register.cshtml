@@ -94,6 +94,9 @@
 
     <partial name="_ValidationScriptsPartial" />
     <script src="https://www.google.com/recaptcha/api.js?render=@GoogleReCaptcha.Value.ReCAPTCHA_Site_Key"></script>
+     @*Client site captcha and server site*@
+    <script src="~/js/CaptchaValidation.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
 
         $(function(){
@@ -108,7 +111,6 @@
                     $('#tokenInput').val(token);
                 });
             });
-
         }
 
         setInterval(getToken ,115000 );
