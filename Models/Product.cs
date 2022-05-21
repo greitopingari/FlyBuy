@@ -41,8 +41,12 @@ namespace FlyBuy.Models
         [Display(Name = "Upload Image")]
         public IFormFile? ImageFile { get; set; }
 
+        [Display(Name = "Age Category")]
         public int CategoryId { get; set; }
+        public virtual AgeCategory? Category { get; set; }
 
-        public virtual Category? Category { get; set; }
+        [Display(Name =  "Product Category")]
+        public int ProductCategoryId { get; set; }
+        public virtual ProductCategory? ProductCategory { get; set; }
     }
 }
