@@ -4,8 +4,6 @@
     ViewData["Title"] = "Create";
 }
 
-<link rel="stylesheet" type="text/css" href="star-rating-svg.css">
-
 <h1>Create</h1>
 
 <h4>Rating</h4>
@@ -21,7 +19,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Rate" class="control-label"></label>
-                <input asp-for="Rate" class="form-control" />
+                <div id="rateYo"></div>
+                <input asp-for="Rate" class="form-control" type="hidden" id="rating"/>
                 <span asp-validation-for="Rate" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,14 +29,11 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Time" class="control-label"></label>
-                <input asp-for="Time" class="form-control" />
-                <span asp-validation-for="Time" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <div class="my-rating"></div>
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+
+            
         </form>
     </div>
 </div>
@@ -46,18 +42,33 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="jquery.star-rating-svg.js"></script>
-}
 
-<script>
-    $(".my-rating").starRating({
-    starSize: 25,
-    callback: function(currentRating, $el){
-        // make a server call here
-        }
-    });
-</script>
+
+@section Scripts {
+
+    <script>
+
+        $(function () {
+ 
+            $("#rateYo").rateYo({
+            rating: 0,
+            ratedFill: "#ff523b",
+            maxValue: 5,
+            numStars: 5,
+            starWidth: "40px",
+            halfStar: true,
+            spacing: "3px",
+            onChange:function (rating , rateYoInstance) {
+                $('#rating').val(rating);
+                console.log(rating);
+            }
+          
+            });
+ 
+        });
+
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   
+}
