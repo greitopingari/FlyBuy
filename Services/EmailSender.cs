@@ -46,6 +46,6 @@ public class EmailSender : IEmailSender
         var response = await client.SendEmailAsync(msg);
         _logger.LogInformation(response.IsSuccessStatusCode
                                ? $"Email to {toEmail} queued successfully!"
-                               : $"Failure Email to {toEmail}");
+                               : $"Failure email to {toEmail}");
     }
 }

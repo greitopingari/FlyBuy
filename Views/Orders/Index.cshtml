@@ -1,0 +1,67 @@
+﻿@model List<OrderItem>
+
+@{ 
+    ViewData["Title"] = "All orders";
+}
+
+@{
+    if(Model != null)
+    {
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <p>
+                    <h4>List of all your orders</h4>
+                </p>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <th>User</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                        <tr>
+                            <td class="align-middle">@order.Id</td>
+                            <td class="align-middle">
+                                <ul style="list-style-type:none">
+                                    @foreach (var item in Model)
+                                    {
+                                        <li>
+                                            <div class="alert alert-info" role="alert">
+                                                <span class="badge bg-success">@item.Quantity</span> [@item.Price.ToString("c")] - @item.Product.Name
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                            <td class="align-middle">
+                                    @{
+                                        var total = order.Price * order.Quantity;
+                                    }
+                                    @total
+                            </td>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <td class="align-middle"> @order.Order.CustomerName</td>
+                            }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <h3>There's no Orders Yet!!</h3>
+    }
+}
