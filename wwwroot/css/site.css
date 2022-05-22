@@ -1445,6 +1445,92 @@ a{
 }
 /* */
 
+.form-control-product {
+    display: flex;
+    gap: 10%;
+
+    border: 1px solid rgb(203, 195, 195);
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+    border-radius: 5px;
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.form-control-product form {
+   
+    flex:0.8;
+    margin:30px;
+}
+
+.Image{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:  5px;
+}
+
+.Image img {
+    width: 400px;
+    height: 400px;
+    margin-right: 20px;
+    transition: 0.7s ease;
+    border: 1px solid rgb(203, 195, 195);
+    cursor: pointer;
+}
+
+.Image img:hover {
+    box-shadow: 0px 20px 0px -10px #fff, 0px -20px 0px -10px #fff, 20px 0px 0px -10px #fff, -20px 0px 0px -10px #fff, 0px 0px 0px 10px #ff0000, -19px 19px 8px 10px rgba(0, 0, 0, 0.26);
+    transform: scale(0.9);
+}
+
+.Image input{
+    padding: 8px;
+    cursor:  pointer;
+    width:400px;
+}
+
+.row-2 {
+    display:block;
+}
+
+.form-container-2{
+    margin:0;
+}
+
+.form-control {
+    border:2px solid #ff523b;
+    border-radius:  10px;
+}
+
+#file{
+    display:none;
+}
+
+.Image label {
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #ff523b;
+    color: #fff;
+    border: 1px solid #ff523b;
+    transition: all 0.3s ease-in-out;
+}
+
+.Image i {
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+.Image label:hover{
+    background-color: #fff;
+    color:  #ff523b;
+    
+}
+
+.Image label:hover i {
+    color: #ff523b;
+}
+
 
 /* Media Queries */
 @media only screen and (max-width: 1070px) {
@@ -1466,57 +1552,6 @@ a{
         margin: 50px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Media Queries */
 

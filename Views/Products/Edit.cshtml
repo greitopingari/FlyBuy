@@ -7,64 +7,76 @@
 
 <div class="account-page account-page-2">
     <div class="container">
-        <div class="row">
+        <div class="row row-2">
             <div class="col-2 form-container-2">
 
                  <div class="form-container">
 
-                    <div class="form-btn">
-                        <span>Edit Product @Model.Name</span>
-                    </div>
+                    <div class="form-control form-control-product">
 
-                    <div class="form-control">
-                        <form asp-action="Edit">
+                        <form asp-action="Edit" enctype="multipart/form-data">
 
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="Id" />
 
                             <label asp-for="Name" class="control-label"></label>
-                            <input asp-for="Name" class="form-edit" />
+                            <br />
                             <span asp-validation-for="Name" class="text-danger"></span>
-
+                            <input asp-for="Name" class="form-edit" />
+                            
+                            
                             <label asp-for="Price" class="control-label"></label>
-                            <input asp-for="Price" class="form-edit" />
                             <span asp-validation-for="Price" class="text-danger"></span>
+                            <br />
+                            <input asp-for="Price" class="form-edit" />
+                            
                         
                             <label asp-for="Description" class="control-label"></label>
-                            <input asp-for="Description" class="form-edit" />
                             <span asp-validation-for="Description" class="text-danger"></span>
-
-                            <label asp-for="LastUpdated" class="control-label"></label>
-                            <input asp-for="LastUpdated" class="form-edit" />
-                            <span asp-validation-for="LastUpdated" class="text-danger"></span>
-
+                            <br />
+                            <input asp-for="Description" class="form-edit" />
+                            
+                            
                             <label asp-for="AgeCategory" class="control-label"></label>
-                            <input asp-for="AgeCategory" class="form-edit" />
                             <span asp-validation-for="AgeCategory" class="text-danger"></span>
+                            <br />
+                            <input asp-for="AgeCategory" class="form-edit" />
+                            
 
                             <label asp-for="Rating" class="control-label"></label>
-                            <input asp-for="Rating" class="form-edit" />
                             <span asp-validation-for="Rating" class="text-danger"></span>
+                            <br />
+                            <input asp-for="Rating" class="form-edit" />
+                            
 
                             <label asp-for="Image" class="control-label"></label>
-                            <input asp-for="Image" class="form-edit" />
-                            <span asp-validation-for="Image" class="text-danger"></span>
-                            <br />
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                            <br />                         
+                            <input asp-for="ImageFile" class="form-edit" accept="image/*"  onchange="loadFile(event)"  id="file"/>
+                            
+                            
                             <br />
                             <label asp-for="CategoryId" class="control-label"></label>
-                            <select asp-for="CategoryId" class="form-edit" asp-items="ViewBag.CategoryId"></select>
                             <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            <br />
+                            <select asp-for="CategoryId" class="form-edit" asp-items="ViewBag.CategoryId"></select>
+                            
                             <br />
                             <br />
                             <label asp-for="ProductCategoryId" class="control-label"></label>
-                            <select asp-for="ProductCategoryId" class="form-edit" asp-items="ViewBag.ProductCategoryId"></select>
                             <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
-
+                            <br />
+                            <select asp-for="ProductCategoryId" class="form-edit" asp-items="ViewBag.ProductCategoryId"></select>
+                            
                             <input type="submit" value="Save" class="btn btn-primary" />
 
                             <a asp-action="Index">Back to List</a>
+
                         </form>
 
+                        <div class="Image">
+                            <img src="/Images/Products/@Model.Image" id="output"/>
+                        </div>
                     
                     </div>
 
@@ -77,4 +89,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script  src="~/js/ProductImageLoad.js"></script>
 }

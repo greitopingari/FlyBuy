@@ -6,16 +6,13 @@
 
  <div class="account-page account-page-2">
     <div class="container">
-        <div class="row">
-            <div class="col-2">
+        <div class="row row-2">
+            <div class="col-2 form-container-2">
 
-                <div class="form-container">
+                <div class="form-container form-container-2">
 
-                    <div class="form-btn">
-                        <span>Add a Product</span>
-                    </div>
 
-                     <div class="form-control">
+                     <div class="form-control form-control-product">
                         <form asp-action="Create" enctype="multipart/form-data">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -40,8 +37,7 @@
                             <span asp-validation-for="Rating" class="text-danger"></span>
 
                             
-                            <input asp-for="ImageFile" class="form-edit" accept="image/*"/>
-                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                            
 
                             <br />
                             <br />
@@ -57,6 +53,14 @@
 
                              <a asp-action="Index">Back to List</a>
                         </form>
+
+                         <div class="Image">
+                            <img src="/Images/Products/" id="output"/>
+                            <input asp-for="ImageFile" class="form-edit" accept="image/*" onchange="loadFile(event)"  id="file"/>
+                            <label id="label" for="file">Upload product photo <i class="fa-solid fa-image"></i></label>
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                          </div>
+
                      </div>
 
                 </div>
@@ -67,4 +71,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script  src="~/js/ProductImageLoad.js"></script>
 }

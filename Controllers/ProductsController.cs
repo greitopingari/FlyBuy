@@ -109,7 +109,7 @@ namespace FlyBuy.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,LastUpdated,AgeCategory,Rating,Image,CategoryId,ProductCategoryId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,LastUpdated,AgeCategory,Rating,ImageFile,CategoryId,ProductCategoryId")] Product product)
         {
             if (id != product.Id)
             {
@@ -120,6 +120,17 @@ namespace FlyBuy.Controllers
             {
                 try
                 {
+                    string wwwRootPath = _HostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(product.ImageFile.FileName);
+                    string extension = Path.GetExtension(product.ImageFile.FileName);
+                    product.Image = fileName += DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/Images/Products", fileName);
+
+                    using (var fileSteam = new FileStream(path, FileMode.Create))
+                    {
+                        await product.ImageFile.CopyToAsync(fileSteam);
+                    }
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
