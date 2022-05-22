@@ -1,9 +1,9 @@
 using FlyBuy.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using FlyBuy.ReCAPTCHA;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using FlyBuy.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 using WebPWrecover.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +49,15 @@ builder.Services.AddTransient(typeof(GoogleCaptchaService));
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "Cart";
+    options.IdleTimeout = TimeSpan.FromSeconds(10);
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -63,6 +72,10 @@ else
     app.UseHsts();
 }
 
+
+
+
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -70,6 +83,9 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",
