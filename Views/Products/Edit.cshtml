@@ -4,7 +4,6 @@
     ViewData["Title"] = "Edit";
 }
 
-
 <div class="account-page account-page-2">
     <div class="container">
         <div class="row row-2">
@@ -14,69 +13,72 @@
 
                     <div class="form-control form-control-product">
 
-                        <form asp-action="Edit" enctype="multipart/form-data">
+                        <form asp-action="Edit" enctype="multipart/form-data" id="form_id">
 
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <input type="hidden" asp-for="Id" />
+                            <div class="form-fields" id="forma">
+                                
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id"/>
 
-                            <label asp-for="Name" class="control-label"></label>
-                            <br />
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                            <input asp-for="Name" class="form-edit" />
+                                <label asp-for="Name" class="control-label"></label>
+                                <br />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                                <input asp-for="Name" class="form-edit" placeholder="Name ..."/>
                             
                             
-                            <label asp-for="Price" class="control-label"></label>
-                            <span asp-validation-for="Price" class="text-danger"></span>
-                            <br />
-                            <input asp-for="Price" class="form-edit" />
+                                <label asp-for="Price" class="control-label"></label>
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                                <br />
+                                <input asp-for="Price" class="form-edit" placeholder="Price ..."/>
                             
                         
-                            <label asp-for="Description" class="control-label"></label>
-                            <span asp-validation-for="Description" class="text-danger"></span>
-                            <br />
-                            <input asp-for="Description" class="form-edit" />
+                                <label asp-for="Description" class="control-label"></label>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                                <br />
+                                <input asp-for="Description" class="form-edit" placeholder="Description"/>
                             
                             
-                            <label asp-for="AgeCategory" class="control-label"></label>
-                            <span asp-validation-for="AgeCategory" class="text-danger"></span>
-                            <br />
-                            <input asp-for="AgeCategory" class="form-edit" />
-                            
-
-                            <label asp-for="Rating" class="control-label"></label>
-                            <span asp-validation-for="Rating" class="text-danger"></span>
-                            <br />
-                            <input asp-for="Rating" class="form-edit" />
+                                <label asp-for="AgeCategory" class="control-label"></label>
+                                <span asp-validation-for="AgeCategory" class="text-danger"></span>
+                                <br />
+                                <input asp-for="AgeCategory" class="form-edit" placeholder="Age category ...."/>
                             
 
-                            <label asp-for="Image" class="control-label"></label>
-                            <span asp-validation-for="ImageFile" class="text-danger"></span>
-                            <br />                         
-                            <input asp-for="ImageFile" class="form-edit" accept="image/*"  onchange="loadFile(event)"  id="file"/>
+                                <label asp-for="Rating" class="control-label"></label>
+                                <span asp-validation-for="Rating" class="text-danger"></span>
+                                <br />
+                                <input asp-for="Rating" class="form-edit" placeholder="Rating..."/>
+                                    
                             
+                                <br />
+                                <label asp-for="CategoryId" class="control-label"></label>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                <br />
+                                <select asp-for="CategoryId" class="form-edit" asp-items="ViewBag.CategoryId"></select>
                             
-                            <br />
-                            <label asp-for="CategoryId" class="control-label"></label>
-                            <span asp-validation-for="CategoryId" class="text-danger"></span>
-                            <br />
-                            <select asp-for="CategoryId" class="form-edit" asp-items="ViewBag.CategoryId"></select>
+                                <br />
+                                <br />
+                                <label asp-for="ProductCategoryId" class="control-label"></label>
+                                <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
+                                <br />
+                                <select asp-for="ProductCategoryId" class="form-edit" asp-items="ViewBag.ProductCategoryId"></select>
                             
-                            <br />
-                            <br />
-                            <label asp-for="ProductCategoryId" class="control-label"></label>
-                            <span asp-validation-for="ProductCategoryId" class="text-danger"></span>
-                            <br />
-                            <select asp-for="ProductCategoryId" class="form-edit" asp-items="ViewBag.ProductCategoryId"></select>
-                            
-                            <input type="submit" value="Save" class="btn btn-primary" />
+                                <input type="submit" value="Save" class="btn btn-primary" onclick="Edit(); return false;"/>
 
-                            <a asp-action="Index">Back to List</a>
+                                <a asp-action="Index">Back to List</a>
+                            </div>
+
+                            <div class="Image">                              
+                                <img src="/Images/Products/@Model.Image" id="output"/>
+                                <p>@ViewBag.imgPath</p>
+                                <input type="file"  name="ImageFile" class="form-edit" accept="image/*"  onchange="loadFile(event)"  id="file"/>
+                                <label for="file">Edit product photo <i class="fa-solid fa-image"></i></label>
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>                                               
+                            </div>
 
                         </form>
 
-                        <div class="Image">
-                            <img src="/Images/Products/@Model.Image" id="output"/>
-                        </div>
+                        
                     
                     </div>
 
@@ -89,5 +91,21 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script  src="~/js/ProductImageLoad.js"></script>
+<script>
+    function Edit() 
+    {
+        var form = $("#form_id").valid();
+        if (form) 
+        {
+            alertify.success('Product edited');
+            setTimeout(function () {
+                document.getElementById("form_id").submit()
+                return false;
+            }, 700);
+        }
+        else {
+            alertify.warning('Warning!');
+        }
+    }
+</script>
 }

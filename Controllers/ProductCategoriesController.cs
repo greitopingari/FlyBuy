@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FlyBuy.Data;
 using FlyBuy.Models;
+using System.Web.Helpers;
 
 namespace FlyBuy.Controllers
 {
@@ -27,23 +28,6 @@ namespace FlyBuy.Controllers
                           Problem("Entity set 'ApplicationDbContext.ProductCategories'  is null.");
         }
 
-        // GET: ProductCategories/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.ProductCategories == null)
-            {
-                return NotFound();
-            }
-
-            var productCategory = await _context.ProductCategories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (productCategory == null)
-            {
-                return NotFound();
-            }
-
-            return View(productCategory);
-        }
 
         // GET: ProductCategories/Create
         public IActionResult Create()
@@ -51,21 +35,19 @@ namespace FlyBuy.Controllers
             return View();
         }
 
-        // POST: ProductCategories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] ProductCategory productCategory)
+        public JsonResult Create(ProductCategory productCategory)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(productCategory);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.SaveChanges();
+                
             }
-            return View(productCategory);
+            return new JsonResult(Ok());
         }
+
 
         // GET: ProductCategories/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -83,9 +65,7 @@ namespace FlyBuy.Controllers
             return View(productCategory);
         }
 
-        // POST: ProductCategories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] ProductCategory productCategory)
@@ -118,41 +98,13 @@ namespace FlyBuy.Controllers
             return View(productCategory);
         }
 
-        // GET: ProductCategories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public JsonResult Delete(int? id)
         {
-            if (id == null || _context.ProductCategories == null)
-            {
-                return NotFound();
-            }
-
-            var productCategory = await _context.ProductCategories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (productCategory == null)
-            {
-                return NotFound();
-            }
-
-            return View(productCategory);
-        }
-
-        // POST: ProductCategories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.ProductCategories == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.ProductCategories'  is null.");
-            }
-            var productCategory = await _context.ProductCategories.FindAsync(id);
-            if (productCategory != null)
-            {
-                _context.ProductCategories.Remove(productCategory);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var ProducCategory = _context.ProductCategories.Find(id);
+            _context.ProductCategories.Remove(ProducCategory);
+            _context.SaveChanges();
+            return new JsonResult(Ok());
         }
 
         private bool ProductCategoryExists(int id)

@@ -1364,13 +1364,23 @@ a{
     background: #ff523b;
 }
 
-/* Responsive Table*/
-
-@media (max-width: 767px) {
-.fl-table {
-    display: block;
-    width: 100%;
+    .fl-table .fa-pen-to-square, .fl-table .fa-trash-alt {
+        color: var(--grey-color);
+        font-size: 18px;
+        transition: all 0.2s ease-in-out;
     }
+
+.fl-table .fa-pen-to-square:hover, .fl-table .fa-trash-alt:hover{
+    color:#ff523b;
+    transform: scale(1.2);
+    
+}
+    /* Responsive Table*/
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+}
 
 .table-wrapper:before {
     content: "Scroll horizontally >";
@@ -1445,10 +1455,9 @@ a{
 }
 /* */
 
-.form-control-product {
+.form-control-product form {
     display: flex;
     gap: 10%;
-
     border: 1px solid rgb(203, 195, 195);
     box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
     border-radius: 5px;
@@ -1456,10 +1465,9 @@ a{
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.form-control-product form {
-   
-    flex:0.8;
-    margin:30px;
+.form-control-product form .form-fields {
+    flex: 0.8;
+    margin: 30px;
 }
 
 .Image{
@@ -1467,11 +1475,11 @@ a{
     flex-direction:column;
     align-items:center;
     gap:  5px;
+    justify-content: center;
 }
 
 .Image img {
-    width: 400px;
-    height: 400px;
+    width: 300px;
     margin-right: 20px;
     transition: 0.7s ease;
     border: 1px solid rgb(203, 195, 195);
@@ -1497,14 +1505,18 @@ a{
     margin:0;
 }
 
-.form-control {
-    border:2px solid #ff523b;
-    border-radius:  10px;
+.form-control-product form {
+    border: 1px solid #ff523b;
+    border-radius: 10px;
 }
 
 #file{
     display:none;
 }
+/*
+#output{
+    display: none;
+}*/
 
 .Image label {
     cursor: pointer;
@@ -1530,6 +1542,17 @@ a{
 .Image label:hover i {
     color: #ff523b;
 }
+
+
+.swal-footer {
+    background-color: rgb(245, 248, 250);
+    margin-top: 32px;
+    border-top: 1px solid #E9EEF1;
+    overflow: hidden;
+}
+
+
+
 
 
 /* Media Queries */

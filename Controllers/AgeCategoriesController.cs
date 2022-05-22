@@ -19,7 +19,6 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
-        // GET: AgeCategories
         public async Task<IActionResult> Index()
         {
               return _context.AgeCategories != null ? 
@@ -27,33 +26,11 @@ namespace FlyBuy.Controllers
                           Problem("Entity set 'ApplicationDbContext.AgeCategories'  is null.");
         }
 
-        // GET: AgeCategories/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.AgeCategories == null)
-            {
-                return NotFound();
-            }
-
-            var ageCategory = await _context.AgeCategories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ageCategory == null)
-            {
-                return NotFound();
-            }
-
-            return View(ageCategory);
-        }
-
-        // GET: AgeCategories/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: AgeCategories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] AgeCategory ageCategory)
@@ -67,7 +44,6 @@ namespace FlyBuy.Controllers
             return View(ageCategory);
         }
 
-        // GET: AgeCategories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.AgeCategories == null)
@@ -83,9 +59,7 @@ namespace FlyBuy.Controllers
             return View(ageCategory);
         }
 
-        // POST: AgeCategories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] AgeCategory ageCategory)
@@ -118,42 +92,17 @@ namespace FlyBuy.Controllers
             return View(ageCategory);
         }
 
-        // GET: AgeCategories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public JsonResult Delete(int? id)
         {
-            if (id == null || _context.AgeCategories == null)
-            {
-                return NotFound();
-            }
+            var AgeCategories = _context.AgeCategories.Find(id);      
+            _context.AgeCategories.Remove(AgeCategories);
+            _context.SaveChanges();
+            return new JsonResult(Ok());
 
-            var ageCategory = await _context.AgeCategories
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (ageCategory == null)
-            {
-                return NotFound();
-            }
-
-            return View(ageCategory);
         }
 
-        // POST: AgeCategories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.AgeCategories == null)
-            {
-                return Problem("Entity set 'ApplicationDbContext.AgeCategories'  is null.");
-            }
-            var ageCategory = await _context.AgeCategories.FindAsync(id);
-            if (ageCategory != null)
-            {
-                _context.AgeCategories.Remove(ageCategory);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+
 
         private bool AgeCategoryExists(int id)
         {

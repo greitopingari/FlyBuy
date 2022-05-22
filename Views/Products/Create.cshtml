@@ -13,56 +13,56 @@
 
 
                      <div class="form-control form-control-product">
-                        <form asp-action="Create" enctype="multipart/form-data">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <form asp-action="Create" enctype="multipart/form-data" id="form_id">
+
+                            <div class="form-fields">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                             
-                            <input asp-for="Name" class="form-edit" placeholder="Product name ..."/>
-                            <span asp-validation-for="Name" class="text-danger"></span>
+                                <input asp-for="Name" class="form-edit" placeholder="Product name ..."/>
+                                <span asp-validation-for="Name" class="text-danger"></span>
 
                             
-                            <input asp-for="Price" class="form-edit" placeholder="Product price ...">
-                            <span asp-validation-for="Price" class="text-danger"></span>
+                                <input asp-for="Price" class="form-edit" placeholder="Product price ...">
+                                <span asp-validation-for="Price" class="text-danger"></span>
 
                             
-                            <input asp-for="Description" class="form-edit" placeholder="Product description ..."/>
-                            <span asp-validation-for="Description" class="text-danger"></span>
+                                <input asp-for="Description" class="form-edit" placeholder="Product description ..."/>
+                                <span asp-validation-for="Description" class="text-danger"></span>
 
                             
-                            <input asp-for="AgeCategory" class="form-edit" placeholder="Product age category ..."/>
-                            <span asp-validation-for="AgeCategory" class="text-danger"></span>
+                                <input asp-for="AgeCategory" class="form-edit" placeholder="Product age category ..."/>
+                                <span asp-validation-for="AgeCategory" class="text-danger"></span>
 
                             
-                            <input asp-for="Rating" class="form-edit" placeholder="Product rating ..."/>
-                            <span asp-validation-for="Rating" class="text-danger"></span>
+                                <input asp-for="Rating" class="form-edit" placeholder="Product rating ..."/>
+                                <span asp-validation-for="Rating" class="text-danger"></span>
 
-                            
-                            
+                                <br />
+                                <br />
 
-                            <br />
-                            <br />
+                                <select asp-for="CategoryId" class ="form-edit" asp-items="ViewBag.CategoryId"></select>
 
-                            <select asp-for="CategoryId" class ="form-edit" asp-items="ViewBag.CategoryId"></select>
+                                <br />
+                                <br />
 
-                            <br />
-                            <br />
+                                <select asp-for="ProductCategoryId" class ="form-edit" asp-items="ViewBag.ProductCategoryId"></select>
 
-                            <select asp-for="ProductCategoryId" class ="form-edit" asp-items="ViewBag.ProductCategoryId"></select>
+                                 <input type="submit" value="Create" class="btn btn-primary" onclick="test(); return false;"/>
 
-                             <input type="submit" value="Create" class="btn btn-primary" />
+                                 <a asp-action="Index">Back to List</a>
+                            </div>
 
-                             <a asp-action="Index">Back to List</a>
+                             <div class="Image">
+                                <img src="/Images/Products/" id="output"/>
+                                <input asp-for="ImageFile" class="form-edit" accept="image/*" onchange="loadFile(event)"  id="file" required/>
+                                <label id="label" for="file">Upload product photo <i class="fa-solid fa-image"></i></label>
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                            </div>
+
                         </form>
 
-                         <div class="Image">
-                            <img src="/Images/Products/" id="output"/>
-                            <input asp-for="ImageFile" class="form-edit" accept="image/*" onchange="loadFile(event)"  id="file"/>
-                            <label id="label" for="file">Upload product photo <i class="fa-solid fa-image"></i></label>
-                            <span asp-validation-for="ImageFile" class="text-danger"></span>
-                          </div>
-
                      </div>
-
                 </div>
             </div>
         </div>
