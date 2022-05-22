@@ -6,59 +6,63 @@
 
  <div class="account-page account-page-2">
     <div class="container">
-        <div class="row">
-            <div class="col-2">
+        <div class="row row-2">
+            <div class="col-2 form-container-2">
 
-                <div class="form-container">
+                <div class="form-container form-container-2">
 
-                    <div class="form-btn">
-                        <span>Add a Product</span>
-                    </div>
 
-                     <div class="form-control">
-                        <form asp-action="Create" enctype="multipart/form-data">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                     <div class="form-control form-control-product">
+                        <form asp-action="Create" enctype="multipart/form-data" id="form_id">
 
-                            
-                            <input asp-for="Name" class="form-edit" placeholder="Product name ..."/>
-                            <span asp-validation-for="Name" class="text-danger"></span>
+                            <div class="form-fields">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                             
-                            <input asp-for="Price" class="form-edit" placeholder="Product price ...">
-                            <span asp-validation-for="Price" class="text-danger"></span>
+                                <input asp-for="Name" class="form-edit" placeholder="Product name ..."/>
+                                <span asp-validation-for="Name" class="text-danger"></span>
 
                             
-                            <input asp-for="Description" class="form-edit" placeholder="Product description ..."/>
-                            <span asp-validation-for="Description" class="text-danger"></span>
+                                <input asp-for="Price" class="form-edit" placeholder="Product price ...">
+                                <span asp-validation-for="Price" class="text-danger"></span>
 
                             
-                            <input asp-for="AgeCategory" class="form-edit" placeholder="Product age category ..."/>
-                            <span asp-validation-for="AgeCategory" class="text-danger"></span>
+                                <input asp-for="Description" class="form-edit" placeholder="Product description ..."/>
+                                <span asp-validation-for="Description" class="text-danger"></span>
 
                             
-                            <input asp-for="Rating" class="form-edit" placeholder="Product rating ..."/>
-                            <span asp-validation-for="Rating" class="text-danger"></span>
+                                <input asp-for="AgeCategory" class="form-edit" placeholder="Product age category ..."/>
+                                <span asp-validation-for="AgeCategory" class="text-danger"></span>
 
                             
-                            <input asp-for="ImageFile" class="form-edit" accept="image/*"/>
-                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                <input asp-for="Rating" class="form-edit" placeholder="Product rating ..."/>
+                                <span asp-validation-for="Rating" class="text-danger"></span>
 
-                            <br />
-                            <br />
+                                <br />
+                                <br />
 
-                            <select asp-for="CategoryId" class ="form-edit" asp-items="ViewBag.CategoryId"></select>
+                                <select asp-for="CategoryId" class ="form-edit" asp-items="ViewBag.CategoryId"></select>
 
-                            <br />
-                            <br />
+                                <br />
+                                <br />
 
-                            <select asp-for="ProductCategoryId" class ="form-edit" asp-items="ViewBag.ProductCategoryId"></select>
+                                <select asp-for="ProductCategoryId" class ="form-edit" asp-items="ViewBag.ProductCategoryId"></select>
 
-                             <input type="submit" value="Create" class="btn btn-primary" />
+                                 <input type="submit" value="Create" class="btn btn-primary" onclick="test(); return false;"/>
 
-                             <a asp-action="Index">Back to List</a>
+                                 <a asp-action="Index">Back to List</a>
+                            </div>
+
+                             <div class="Image">
+                                <img src="/Images/Products/" id="output"/>
+                                <input asp-for="ImageFile" class="form-edit" accept="image/*" onchange="loadFile(event)"  id="file" required/>
+                                <label id="label" for="file">Upload product photo <i class="fa-solid fa-image"></i></label>
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>
+                            </div>
+
                         </form>
-                     </div>
 
+                     </div>
                 </div>
             </div>
         </div>
@@ -67,4 +71,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script  src="~/js/ProductImageLoad.js"></script>
 }
