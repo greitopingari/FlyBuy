@@ -19,6 +19,7 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
+
         public async Task<IActionResult> Index()
         {
               return _context.AgeCategories != null ? 
