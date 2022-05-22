@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using FlyBuy.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using FlyBuy.Models;
 
 namespace FlyBuy.Data
 {
@@ -16,6 +16,13 @@ namespace FlyBuy.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<AgeCategory> AgeCategories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+
+
+        //Shopping Cart
+        public DbSet<CartItem> ShoppingCartItems { get; set; }
 
     }
 }
