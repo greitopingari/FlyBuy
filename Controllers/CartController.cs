@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using FlyBuy.SessionConfig;
+﻿using FlyBuy.Data;
 using FlyBuy.Models;
-using FlyBuy.Data;
-using System.Threading.Tasks;
-using System.Linq;
+using FlyBuy.SessionConfig;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FlyBuy.Controllers
 {
@@ -132,11 +130,57 @@ namespace FlyBuy.Controllers
                     _context.SaveChanges();
                 }
 
-                HttpContext.Session.Remove("Cart");            
+                HttpContext.Session.Remove("Cart");
             }
 
             return new JsonResult(Ok());
 
         }
+
+        [HttpGet]
+        public IActionResult ProccedToCheckout()
+        {
+            return View("CheckOutCompleted");
+        }
+
+        [HttpPost]
+        public IActionResult ProccedToCheckout(IFormCollection frm_coll)
+        {
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+
+            var order = new FlyBuy.Models.Order()
+            {
+                CustomerName = frm_coll["Name"],
+                CustomerPhone = frm_coll["Phone"],
+                CustomerEmail = frm_coll["Email"],
+                CustomerAddress = frm_coll["Adress"]
+            };
+
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+
+            foreach (var stCart in cart)
+            {
+                OrderItem orderDetail = new OrderItem()
+                {
+                    OrderId = order.Id,
+                    ProductId = stCart.ProductId,
+                    Quantity = stCart.Quantity,
+                    Price = (float)stCart.Price
+                };
+                _context.OrderItems.Add(orderDetail);
+                _context.SaveChanges();
+            }
+            HttpContext.Session.Remove("Cart");
+
+            return RedirectToAction("ThankYou");
+        }
+
+
+        public IActionResult ThankYou()
+        {
+            return View();
+        }
+
     }
 }

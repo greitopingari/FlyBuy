@@ -46,8 +46,12 @@
                 </tr>
 
                 <tr>
-                    <td><a class="AddToOrderTable">Check Out</a></td>
+                    <td>
+                        <div id="paypal-btn"></div>
+                    </td>
+                    <td><a asp-action="ProccedToCheckout" asp-controller="Cart">Procced To Checkout</a></td>
                     <td><a asp-action="Clear" class="">Clear Cart</a></td>
+
                 </tr>
                 <tr>
                                 
@@ -88,71 +92,41 @@ else
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.15/dist/sweetalert2.all.min.js"></script>
 
 @section Scripts {
-
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
-    $(function() {
-        $(".AddToOrderTable").click(function()
-        {
-            Swal.fire({
-                title: 'Last Step',
-                html:
-                    `<input id="name" type="text" name="Name" placeholder="Name" class="swal2-input" required />
-                    <input  id="email" type="email" name="Email" placeholder="Email" class="swal2-input" required />
-                    <input  id="phone" type="text" name="Phone" placeholder="Phone Number" class="swal2-input" required />
-                    <input id="adress" type="text" name="Adress" placeholder="Adress" class="swal2-input" required />`,
-                confirmButtonText: 'Check Out',
-                focusConfirm: false,
-                cancelButtonText: 'Cancel',
-                showCancelButton: true,
-                confirmButtonColor : '#4FC3A1',
-                cancelButtonColor : '#ff523b',
-                preConfirm: () => {
-                    const name   = Swal.getPopup().querySelector('#name').value
-                    const email  = Swal.getPopup().querySelector('#email').value
-                    const phone  = Swal.getPopup().querySelector('#phone').value
-                    const adress = Swal.getPopup().querySelector('#adress').value
-
-                    const atposition=email.indexOf("@@");  
-                    const dotposition=email.lastIndexOf(".");  
-                    
-                    if (!name ||  !email ||  !phone  || !adress) 
-                    {
-                        Swal.showValidationMessage(`Fields cant not be let empty`)
-                    }
-                    
-                    if (atposition < 1 || dotposition < atposition + 2 || dotposition + 2 >= email.length)
-                    {  
-                        Swal.showValidationMessage(`Please enter a valid email adress`)  
-                    }  
-
-                    return { name , email  , phone , adress }
-                }
-            })
-        .then((result) => 
-        {
-            if (result) {
-                $.ajax
-                ({
-                    type: "POST",
-                    url: "@Url.Action("CheckOut","Cart")",
-                    data: {CustomerName : result.value.name , CustomerPhone : result.value.phone , CustomerEmail : result.value.email  ,  CustomerAddress : result.value.adress },
-                    success: function (data) {
-                        if (data) {
-                            swal("Your order was completed!", { icon: "success", }).then(() => {
-                                window.location.href = "/Home/Index";
-                            });
-
-                        } else {
-                            alert("Order  falied!");
+    var _total = @Model.GrandTotal ;
+        paypal.Button.render({
+            //Configure environment
+            env: 'sandbox',
+            client: {
+                sandbox: 'AZ2ZN6lAUK2-nhn8NYguEdkdOe-Heu5yDM8HTS7ZxV3_85SPoVMVb8GbAzfJONVVF32LjZW5dYwSOWPz'
+            },
+            //Customize button
+            locale: 'en_US',
+            style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill'
+            },
+            commit: true,
+            //Set up a payment
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: _total,
+                            currency: 'USD'
                         }
-                    }
+                    }]
                 });
-                    
-                }
-            })
-        });
-
-    }); 
-</script>
-
+            },
+            //Execute the payment
+            onAuthorize: function (data, actions) {
+                return actions.payment.execute().then(function () {
+                    var url = '@Url.Action("ProccedToCheckout", "Cart", new { })';
+                    window.location.href = url;
+                });
+            }
+        }, '#paypal-btn')
+    </script>
 }
