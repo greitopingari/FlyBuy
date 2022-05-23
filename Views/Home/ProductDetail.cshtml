@@ -1,0 +1,144 @@
+﻿@model FlyBuy.Models.Product
+
+@{
+    ViewData["Title"] = "ProductDetail";
+}
+
+
+<div class="backgound" id="background">
+    <div class="small-container singleProduct">
+        <div  class="row">
+            <div class="col-2">
+                <img src="/Images/Products/@Model.Image" width="100%"  />
+            </div>
+            <div class="col-2">
+                <p>Home / @Model.Category.Name</p>
+                <h1>@Model.Name</h1>
+                <h4>@Model.Price.ToString("C2")</h4>                
+                    <select>
+                        <option>Select Size</option>
+                        <option>XXL</option>
+                        <option>XL</option>
+                        <option>Large</option>
+                        <option>Medium</option>
+                        <option>Small</option>
+                    </select>
+                <input type="number" value="1"/>
+                <a asp-action="Add" asp-controller="Cart" asp-route-id="@Model.Id"><i class="fa-solid fa-cart-plus"></i></a>
+                <h3>Product details <i class="fa fa-indent"></i></h3>
+                <br />
+                <p>asdf fs fsaef s s g sg s dg sg s g sg  sg s x gs g sdgsgsg
+                    dsfsdf sdgsdgsdgasgsjgsajgbjsdg
+                </p>
+            </div>
+        </div>
+
+        @*<div class="row">
+            
+            @foreach (var item in ViewData["Products"] as List<FlyBuy.Models.Product> )
+            {
+                <div class="col-4">
+                    <a asp-action="ProductDetail" asp-controller="Home" asp-route-id="@item.Id"><img src="/Images/Products/@item.Image"></a>
+                    <h4>@item.Name</h4>
+                    <div class="rating">  
+                            <i class="fa fa-star"></i>
+                    </div>
+                    <p>@item.Price.ToString("C2")</p>
+                    <br />
+                    <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.Id">Add to cart</a>
+                </div>    
+            }
+
+        </div>*@
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<h1>ProductDetail</h1>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastUpdated)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastUpdated)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AgeCategory)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AgeCategory)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductCategory)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductCategory.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>*@

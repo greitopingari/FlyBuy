@@ -26,6 +26,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+
 builder.Services.AddAuthentication()
     .AddGoogle(googleOptions =>
     {
@@ -49,14 +52,14 @@ builder.Services.AddTransient(typeof(GoogleCaptchaService));
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
-builder.Services.AddDistributedMemoryCache();
+//builder.Services.AddDistributedMemoryCache();
 
-builder.Services.AddSession(options =>
-{
-    options.Cookie.Name = "Cart";
-    options.IdleTimeout = TimeSpan.FromSeconds(10);
-    options.Cookie.IsEssential = true;
-});
+//builder.Services.AddSession(options =>
+//{
+//    options.Cookie.Name = "Cart";
+//    options.IdleTimeout = TimeSpan.FromSeconds(10);
+//    options.Cookie.IsEssential = true;
+//});
 
 var app = builder.Build();
 
@@ -80,12 +83,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseSession();
-
 
 app.MapControllerRoute(
     name: "default",

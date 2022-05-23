@@ -261,7 +261,7 @@ p {
     margin: auto;
     padding-left: 25px;
     padding-right: 25px;
-    padding-top: 5%;
+    /*padding-top: 5%;*/
 }
 
 .col-4 {
@@ -918,6 +918,7 @@ table {
 
 .cart-info {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
 }
 
@@ -1364,13 +1365,23 @@ a{
     background: #ff523b;
 }
 
-/* Responsive Table*/
-
-@media (max-width: 767px) {
-.fl-table {
-    display: block;
-    width: 100%;
+    .fl-table .fa-pen-to-square, .fl-table .fa-trash-alt {
+        color: var(--grey-color);
+        font-size: 18px;
+        transition: all 0.2s ease-in-out;
     }
+
+.fl-table .fa-pen-to-square:hover, .fl-table .fa-trash-alt:hover{
+    color:#ff523b;
+    transform: scale(1.2);
+    
+}
+    /* Responsive Table*/
+@media (max-width: 767px) {
+    .fl-table {
+        display: block;
+        width: 100%;
+}
 
 .table-wrapper:before {
     content: "Scroll horizontally >";
@@ -1445,7 +1456,183 @@ a{
 }
 /* */
 
+.form-control-product form {
+    display: flex;
+    gap: 10%;
+    border: 1px solid rgb(203, 195, 195);
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+    border-radius: 5px;
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+}
 
+.form-control-product form .form-fields {
+    flex: 0.8;
+    margin: 30px;
+}
+
+.Image{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:  5px;
+    justify-content: center;
+}
+
+.Image img {
+    width: 300px;
+    margin-right: 20px;
+    transition: 0.7s ease;
+    border: 1px solid rgb(203, 195, 195);
+    cursor: pointer;
+}
+
+.Image img:hover {
+    box-shadow: 0px 20px 0px -10px #fff, 0px -20px 0px -10px #fff, 20px 0px 0px -10px #fff, -20px 0px 0px -10px #fff, 0px 0px 0px 10px #ff0000, -19px 19px 8px 10px rgba(0, 0, 0, 0.26);
+    transform: scale(0.9);
+}
+
+.Image input{
+    padding: 8px;
+    cursor:  pointer;
+    width:400px;
+}
+
+.row-2 {
+    display:block;
+}
+
+.form-container-2{
+    margin:0;
+}
+
+.form-control-product form {
+    border: 1px solid #ff523b;
+    border-radius: 10px;
+}
+
+#file{
+    display:none;
+}
+/*
+#output{
+    display: none;
+}*/
+
+.Image label {
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #ff523b;
+    color: #fff;
+    border: 1px solid #ff523b;
+    transition: all 0.3s ease-in-out;
+}
+
+.Image i {
+    color: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+.Image label:hover{
+    background-color: #fff;
+    color:  #ff523b;
+    
+}
+
+.Image label:hover i {
+    color: #ff523b;
+}
+
+
+.swal-footer {
+    background-color: rgb(245, 248, 250);
+    margin-top: 32px;
+    border-top: 1px solid #E9EEF1;
+    overflow: hidden;
+}
+
+.cart{
+    width:50%;
+}
+
+.cartOptions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 5px;
+    gap: 10px;
+}
+
+.cartOptions i {
+    font-size: 17px;
+    
+    border: 1px solid #ff523b;
+    padding: 7px;
+    transition: 0.3s all  ease-in-out;
+}
+
+.cartOptions i:hover{
+    background-color: #ff523b;
+    color:#fff;
+}
+    
+
+/*Single product details*/
+
+.singleProduct {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+/*.singleProduct .col-2 img{
+    padding: 0;
+}*/
+.singleProduct .col-2  {
+    padding: 20px;
+}
+
+.singleProduct h4{
+    margin:  20px 0;
+    font-size:22px;
+    font-weight: bold;
+}
+
+.singleProduct select{
+    display: block;
+    padding:  10px;
+    margin-top: 20px;
+    border: 1px solid #ff523b;
+} 
+
+.singleProduct input{
+    text-align:center;
+    width:50px;
+    height:40px;
+    padding-left:10px;
+    font-size:20px;
+    margin:10px 10px 10px 0px;
+    border: 1px solid  #ff523b;
+}
+
+.singleProduct input:focus{
+    outline:none;
+}
+
+.singleProduct .fa-indent {
+    color:#ff523b;
+    margin-left:5px;
+}
+
+.small-container-homePage{
+    padding-top: 5%;
+}
+
+.Orders{
+    display:  flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
 /* Media Queries */
 @media only screen and (max-width: 1070px) {
     .col-3 {
@@ -1466,57 +1653,6 @@ a{
         margin: 50px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Media Queries */
 
