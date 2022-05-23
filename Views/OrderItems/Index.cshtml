@@ -1,26 +1,25 @@
-﻿@model IEnumerable<FlyBuy.Models.Order>
+﻿@model IEnumerable<FlyBuy.Models.OrderItem>
 
 @{
     ViewData["Title"] = "Index";
 }
-
 <div class="body">
-    <h2 class="Orders"><a class="btn-form">Orders</a></h2>
+    <h2 class="Orders"><a class="btn-form">Orders Details</a></h2>
      <div class="table-wrapper">
         <table class="fl-table" id="#tabela">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.CustomerName)
+                        @Html.DisplayNameFor(model => model.Price)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CustomerPhone)
+                        @Html.DisplayNameFor(model => model.Quantity)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CustomerEmail)
+                        @Html.DisplayNameFor(model => model.Order)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CustomerAddress)
+                        @Html.DisplayNameFor(model => model.Product)
                     </th>
                 </tr>
             </thead>
@@ -28,16 +27,16 @@
         @foreach (var item in Model) {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CustomerName)
+                        @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CustomerPhone)
+                        @Html.DisplayFor(modelItem => item.Quantity)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CustomerEmail)
+                        @Html.DisplayFor(modelItem => item.Order.CustomerAddress)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CustomerAddress)
+                        @Html.DisplayFor(modelItem => item.Product.AgeCategory)
                     </td>
                     <td>
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -46,5 +45,5 @@
         }
             </tbody>
         </table>
-     </div>
+    </div>
 </div>
