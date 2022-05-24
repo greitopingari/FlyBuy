@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<FlyBuy.Models.Product>
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -33,76 +34,31 @@
     </div>
 
 
+<div class="backgound" id="background">
 
-
-
-
-   <div class="backgound" id="background">
-
-    <div class="small-container">
+    <div class="small-container small-container-homePage">
 
         <h2 class="title">Latest Products</h2>
 
         <div class="row">
-            <div class="col-4">
-                <img src="/Images/Products/category-3223011070.jpg">
-                <h4>item name</h4>
-                <div class="rating">  
-                        <i class="fa fa-star"></i>
-                </div>
-                <p>price $</p>
-                <br />
-                <a>order now</a>
-            </div>
 
-            <div class="col-4">
-                <img src="/Images/Products/category-3223011070.jpg">
-                <h4>item name</h4>
-                <div class="rating">  
-                        <i class="fa fa-star"></i>
-                </div>
-                <p>price $</p>
-                <br />
-                <a>order now</a>
-            </div>
+            @foreach (var item in Model)
+            {
+                <div class="col-4">
+                    <a asp-action="ProductDetail" asp-controller="Home" asp-route-id="@item.Id"><img src="/Images/Products/@item.Image"></a>
+                    <h4>@item.Name</h4>
+                    <div class="rating">  
+                        @for (int i = 0; i < item.Rating; i++)
+                        {
+                            <i class="fa fa-star"></i>
+                        }
+                    </div>
+                    <p>@item.Price.ToString("C2")</p>
+                    <br />
+                    <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.Id">Add to cart</a>
+                </div>    
+            }
 
-            <div class="col-4">
-                <img src="/Images/Products/category-3223011070.jpg">
-                <h4>item name</h4>
-                <div class="rating">  
-                        <i class="fa fa-star"></i>
-                </div>
-                <p>price $</p>
-                <br />
-                <a>order now</a>
-            </div>
-
-            <div class="col-4">
-                <img src="/Images/Products/category-3223011070.jpg">
-                <h4>item name</h4>
-                <div class="rating">  
-                        <i class="fa fa-star"></i>
-                </div>
-                <p>price $</p>
-                <br />
-                <a>order now</a>
-            </div>
         </div>
-
-         <h2 class="title">Summer collection</h2>
-
-         <div class="row3">
-            <div class="col-4">
-                <img src="/Images/Products/category-3223011070.jpg">
-                <h4>item name</h4>
-                <div class="rating">  
-                        <i class="fa fa-star"></i>
-                </div>
-                <p>price $</p>
-                <br />
-                <a>order now</a>
-            </div>
-        </div>
-
     </div>
 </div>

@@ -12,17 +12,11 @@ namespace FlyBuy.Data
         }
 
         public DbSet<Rating> Ratings { get; set; }
-
         public DbSet<Product> Products { get; set; }
         public DbSet<AgeCategory> AgeCategories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
-
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-
-
-        //Shopping Cart
-        public DbSet<CartItem> ShoppingCartItems { get; set; }
 
     }
 }

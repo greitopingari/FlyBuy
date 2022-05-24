@@ -1,0 +1,53 @@
+﻿@model IEnumerable<FlyBuy.Models.OrderItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="body">
+    <h2 class="Orders"><a class="btn-form">Orders Details</a></h2>
+     <div class="table-wrapper">
+        <table class="fl-table" id="#tabela">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Order)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Product)
+                    </th>
+                    <th>Total$</th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Order.CustomerAddress)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.AgeCategory)
+                    </td>
+                    <td>
+                            @{
+                                var total = item.Price * item.Quantity;
+                            }
+                            @total
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+    </div>
+</div>
