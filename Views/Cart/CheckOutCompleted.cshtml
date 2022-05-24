@@ -1,8 +1,4 @@
-﻿@model FlyBuy.Models.CartViewModel
-
-
-
-<div class="account-page account-page-2">
+﻿<div class="account-page account-page-2">
         <div class="container">
             <div class="row">
                 <div class="col-2">
@@ -15,18 +11,19 @@
 
                         <div class="form-control">
                             <form method="post" asp-action="ProccedToCheckout" asp-controller="Cart" enctype="multipart/form-data">
-                                <input type="text" name="Name" placeholder="Name" class="form-edit" required />
+                                <input type="text" name="Name" placeholder="Name" class="form-edit" id="name" required />
 
-                                <input type="email" name="Email" placeholder="Email" class="form-edit" required />
-
-
-                                <input type="text" name="Phone" placeholder="Phone Number" class="form-edit" required />
+                                <input type="email" name="Email" placeholder="Email" class="form-edit" id="email" required />
 
 
-                                <input type="text" name="Adress" placeholder="Adress" class="form-edit" required />
+                                <input type="text" name="Phone" placeholder="Phone Number" class="form-edit" id="phone" required />
 
 
-                                <input type="submit" value="Check Out" class="btn btn-default" />
+                                <input type="text" name="Adress" placeholder="Adress" class="form-edit" id="address" required />
+
+
+                                <input type="submit" value="Check Out" class="btn btn-default" id="checkout_btn"/>
+
 
                                 <br />
                                 <br />
@@ -42,3 +39,54 @@
             </div>
         </div>
     </div>
+
+<div id="paypal-btn"></div>
+
+
+@section Scripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.15/dist/sweetalert2.all.min.js"></script>
+
+
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+    var checkout_button = document.getElementById("checkout_btn");
+    checkout_button.style.display = "none";
+    var _total = @ViewData["grand_total"];
+ 
+            paypal.Button.render({
+            //Configure environment
+            env: 'sandbox',
+            client: {
+                sandbox: 'AZ2ZN6lAUK2-nhn8NYguEdkdOe-Heu5yDM8HTS7ZxV3_85SPoVMVb8GbAzfJONVVF32LjZW5dYwSOWPz'
+            },
+            //Customize button
+            locale: 'en_US',
+            style: {
+                size: 'medium',
+                color: 'gold',
+                shape: 'rect'
+            },
+            commit: true,
+            //Set up a payment
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: _total,
+                            currency: 'USD'
+                        }
+                    }]
+                });
+            },
+            //Execute the payment
+            onAuthorize: function (data, actions) {
+                return actions.payment.execute().then(function () {
+                        checkout_button.style.display = "unset";
+
+                });
+            }
+        }, '#paypal-btn');
+        
+    </script>
+}

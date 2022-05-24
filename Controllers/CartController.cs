@@ -25,6 +25,8 @@ namespace FlyBuy.Controllers
                 GrandTotal = cart.Sum(x => x.Price * x.Quantity)
             };
 
+            TempData["grand_total"] = cartVM;
+
             return View(cartVM);
         }
 
@@ -130,7 +132,7 @@ namespace FlyBuy.Controllers
                     _context.SaveChanges();
                 }
 
-                HttpContext.Session.Remove("Cart");
+                //HttpContext.Session.Remove("Cart");
             }
 
             return new JsonResult(Ok());
@@ -140,6 +142,8 @@ namespace FlyBuy.Controllers
         [HttpGet]
         public IActionResult ProccedToCheckout()
         {
+            List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
+            ViewData["grand_total"] = cart.Sum(x => x.Price * x.Quantity);
             return View("CheckOutCompleted");
         }
 
