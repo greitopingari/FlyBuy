@@ -22,11 +22,22 @@ namespace FlyBuy.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
+         
               return _context.Orders != null ? 
                           View(await _context.Orders.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Orders'  is null.");
+            
         }
-       
+
+        [HttpPost]
+        public JsonResult Delete(int? id)
+        {
+
+            var order = _context.Orders.Find(id);
+            _context.Orders.Remove(order);
+            _context.SaveChanges();
+            return new JsonResult(Ok());
+        }
 
         private bool OrderExists(int id)
         {

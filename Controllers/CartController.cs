@@ -104,40 +104,6 @@ namespace FlyBuy.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        public IActionResult CheckOut(Order order)
-        {
-            ModelState.Remove("Details");
-
-            if (ModelState.IsValid)
-            {
-                List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
-                if (cart == null)
-                {
-                    return NotFound();
-                }
-                _context.Orders.Add(order);
-                _context.SaveChanges();
-
-                foreach (var stCart in cart)
-                {
-                    OrderItem orderDetails = new OrderItem()
-                    {
-                        OrderId = order.Id,
-                        ProductId = stCart.ProductId,
-                        Quantity = stCart.Quantity,
-                        Price = (float)stCart.Price
-                    };
-                    _context.OrderItems.Add(orderDetails);
-                    _context.SaveChanges();
-                }
-
-                //HttpContext.Session.Remove("Cart");
-            }
-
-            return new JsonResult(Ok());
-
-        }
 
         [HttpGet]
         public IActionResult ProccedToCheckout()

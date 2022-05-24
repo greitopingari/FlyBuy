@@ -22,11 +22,12 @@
                     <th>
                         @Html.DisplayNameFor(model => model.CustomerAddress)
                     </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
         @foreach (var item in Model) {
-                <tr>
+                <tr id="productCard@(item.Id)">
                     <td>
                         @Html.DisplayFor(modelItem => item.CustomerName)
                     </td>
@@ -40,7 +41,7 @@
                         @Html.DisplayFor(modelItem => item.CustomerAddress)
                     </td>
                     <td>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a id="@item.Id" class="del-btn"><i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
         }
@@ -48,3 +49,46 @@
         </table>
      </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+$(function() {
+    $(".del-btn").click(function () {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this order!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) 
+                {
+                    var element = $(this);
+                    var del_id = element.attr("id");
+                    var info = "id=" + del_id;
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("Delete")",
+                        data: {id : del_id},
+                        success: function (data) {
+                            if (data) {
+                                $("#productCard" + del_id).fadeOut();
+                            } else {
+                                alert("Order can't be deleted!");
+                            }
+                        }
+                    });
+                    swal("Your order has been deleted!", 
+                    {
+                      icon: "success",
+                    });
+                } 
+                else 
+                {
+                    swal("Your record is safe!");
+                }
+            });
+            return false;
+        });
+    });
+</script>
