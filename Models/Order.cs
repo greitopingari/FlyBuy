@@ -6,10 +6,10 @@ namespace FlyBuy.Models
     {
         public int Id { get; set; }
 
-        
+
         [Display(Name = "Full Name")]
         [Required(ErrorMessage = "Please enter your name!")]
-        [StringLength( 20 , MinimumLength = 4)]
+        [StringLength(20, MinimumLength = 4)]
         public string CustomerName { get; set; }
 
         [Display(Name = "Phone Number")]
@@ -25,8 +25,10 @@ namespace FlyBuy.Models
 
         [Display(Name = "Adress")]
         [Required(ErrorMessage = "Please enter your address!")]
-        [StringLength ( 20 , MinimumLength = 4)]
+        [StringLength(20, MinimumLength = 4)]
         public string CustomerAddress { get; set; }
+
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
         public IList<OrderItem> Details { get; set; }
     }
 }

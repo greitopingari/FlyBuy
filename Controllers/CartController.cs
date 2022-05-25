@@ -25,7 +25,7 @@ namespace FlyBuy.Controllers
                 GrandTotal = cart.Sum(x => x.Price * x.Quantity)
             };
 
-            TempData["grand_total"] = cartVM;
+            ViewData["grand_total"] = cartVM.GrandTotal;
 
             return View(cartVM);
         }
@@ -159,7 +159,6 @@ namespace FlyBuy.Controllers
                 CustomerEmail = frm_coll["Email"],
                 CustomerAddress = frm_coll["Adress"]
             };
-
             _context.Orders.Add(order);
             _context.SaveChanges();
 
