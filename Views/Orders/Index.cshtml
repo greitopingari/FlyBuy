@@ -22,9 +22,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.CustomerAddress)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreatedDate)
-                    </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -43,10 +41,7 @@
                         @Html.DisplayFor(modelItem => item.CustomerAddress)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CreatedDate)
-                    </td>
-                    <td>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a id="@item.Id" class="del-btn"><i class="far fa-trash-alt"></i></a>
                     </td>
                 </tr>
         }

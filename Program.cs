@@ -52,14 +52,6 @@ builder.Services.AddTransient(typeof(GoogleCaptchaService));
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 
-//builder.Services.AddDistributedMemoryCache();
-
-//builder.Services.AddSession(options =>
-//{
-//    options.Cookie.Name = "Cart";
-//    options.IdleTimeout = TimeSpan.FromSeconds(10);
-//    options.Cookie.IsEssential = true;
-//});
 
 var app = builder.Build();
 

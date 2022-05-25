@@ -21,6 +21,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Product)
                     </th>
+                    <th>Total$</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +40,10 @@
                         @Html.DisplayFor(modelItem => item.Product.AgeCategory)
                     </td>
                     <td>
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            @{
+                                var total = item.Price * item.Quantity;
+                            }
+                            @total
                     </td>
                 </tr>
         }
