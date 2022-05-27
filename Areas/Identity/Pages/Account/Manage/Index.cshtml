@@ -7,6 +7,137 @@
 
 
 
+    <canvas id="myChart" width="400" height="100" ></canvas>
+    <button onclick="updateChart()" class="btn" id="btn">Display Chart</button>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+
+    <script>
+
+        var grafik = document.getElementById("myChart");
+        grafik.style.display = "none"
+        var btn = document.getElementById("btn"); 
+
+        function updateChart(){
+            grafik.style.display = "unset";
+            btn.style.display = "none";
+            async function fetchData(){
+                const url = "https://localhost:7293/api/OrderAPI/";
+                const response = await fetch(url);
+
+                const data_points = await response.json();
+                return data_points;
+              };
+      
+            fetchData().then(datapoints => {
+                const month = datapoints.map(function(item){
+                    return moment().month(item.month - 1).format("MMMM");
+                })
+                const total = datapoints.map(function(item){
+                    return item.total;
+                })
+                myChart.data.labels = month;
+                myChart.data.datasets[0].data = total;
+
+                myChart.update();
+            });
+
+
+
+        }
+      
+
+      const ctx = document.getElementById('myChart');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: 'Number of Orders #',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+      
+      
+    </script>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @*<h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
@@ -31,8 +162,9 @@
 
         </div>
     </div>
-</div>
-*@
-@section Scripts {
+</div>*@
+
+@*@section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+*@
