@@ -15,20 +15,23 @@ namespace FlyBuy.Models
         [Display(Name = "Phone Number")]
         [Required(ErrorMessage = "Please enter your phone number!")]
         [DataType(DataType.PhoneNumber)]
+
         public string CustomerPhone { get; set; }
 
         [Display(Name = "Email")]
         //[EmailAddress]
         [Required(ErrorMessage = "Please enter your email!")]
         [DataType(DataType.EmailAddress)]
+
         public string CustomerEmail { get; set; }
 
         [Display(Name = "Adress")]
         [Required(ErrorMessage = "Please enter your address!")]
         [StringLength(20, MinimumLength = 4)]
+
         public string CustomerAddress { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public string CreatedDate { get; set; } = DateTime.Now.Month.ToString();
         public IList<OrderItem> Details { get; set; }
     }
 }
