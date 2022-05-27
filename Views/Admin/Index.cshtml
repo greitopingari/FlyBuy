@@ -1,0 +1,79 @@
+﻿@model IEnumerable<FlyBuy.Models.UserViewModel>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+<div class="body bodyTable">
+    <h2 class="Orders"><a class="btn-form">Users</a></h2>
+     <div class="table-wrapper">
+        <table class="fl-table" id="#tabela">
+            <thead>
+                <tr>
+                    <th>UserName</th>
+                    <th>Email</th>
+                    <th>Birth Day</th>
+                    <th>Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var user in Model) {
+                <tr id="productCard@(user.Id)">
+                   <td>@user.UserName</td>
+                   <td>@user.Email</td>
+                   <td>@user.BirthDate.ToString()</td>
+                   <td>@user.Role</td>
+                    <td>
+                        <a asp-action="Create" asp-controller="Admin" asp-route-id="@user.Id">Add role</a> |
+                        <a asp-action="Edit" asp-controller="Admin" asp-route-id="@user.Id"><i class="fa-solid fa-pen-to-square"></i></a> 
+                        <a id="@user.Id" class="del-btn"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+     </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+$(function() {
+    $(".del-btn").click(function () {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this user!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) 
+                {
+                    var element = $(this);
+                    var del_id = element.attr("id");
+                    var info = "id=" + del_id;
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("Delete")",
+                        data: {id : del_id},
+                        success: function (data) {
+                            if (data) {
+                                $("#productCard" + del_id).fadeOut();
+                            } else {
+                                alert("Record can't be deleted!");
+                            }
+                        }
+                    });
+                    swal("User has been deleted!", 
+                    {
+                      icon: "success",
+                    });
+                } 
+                else 
+                {
+                    swal("Record is safe!");
+                }
+            });
+            return false;
+    });
+});
+</script>

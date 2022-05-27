@@ -51,6 +51,13 @@
 
                     <div class="form-control  form-control-2">
 
+
+                        <div class="from-group2 -re">
+                            <label asp-for="Input.BirthDate"></label>
+                            <input asp-for="Input.BirthDate" class="form-edit" autocomplete="new-password" aria-required="true" placeholder="Birth day..." />
+                            <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+                        </div>
+
                         <div class="from-group2 -re">
                             <label asp-for="Input.Email"></label>
                             <input asp-for="Input.Email" class="form-edit" autocomplete="username" aria-required="true" placeholder="Email..." />

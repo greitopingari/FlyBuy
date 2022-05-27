@@ -30,7 +30,7 @@ namespace FlyBuy.Controllers
             return View(cartVM);
         }
 
-        public async Task<IActionResult> Add(int id)
+        public async Task<IActionResult> Add(int id , int quantity)
         {
             Product product = await _context.Products.FindAsync(id);
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
@@ -38,13 +38,22 @@ namespace FlyBuy.Controllers
 
             if (cartItem == null)
             {
-                cart.Add(new CartItem(product));
+                cart.Add(new CartItem(product, quantity));
             }
             else
             {
-                cartItem.Quantity += 1;
+                if(quantity == 0)
+                {   
+                    
+                    cartItem.Quantity += 1;
+                }
+                else
+                {
+                    cartItem.Quantity += quantity;
+                }
+               
             }
-
+            
             HttpContext.Session.SetJson("Cart", cart);
             return RedirectToAction("Index");
         }

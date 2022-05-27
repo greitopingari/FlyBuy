@@ -868,9 +868,9 @@ select {
         color: var(--footer-h3);
     }
 
-.form-login {
+/*.form-login {
     height: 450px;
-}
+}*/
 
 
 .form_teksti {
@@ -1299,6 +1299,14 @@ a{
 
 /* Table Style*/
 
+.bodyTable{
+    margin: 30px 0px 0px 0px;
+}
+
+.bodyTable .btn-form{
+    margin-bottom: 15px;
+}
+
 .tbl-h2 {
     text-align: center;
     font-size: 18px;
@@ -1632,6 +1640,29 @@ a{
     width: 100%;
     align-items: center;
     justify-content: center;
+}
+
+.btn-role{
+    border: none;
+    background-color: transparent;
+}
+
+.btn-role i{
+    cursor: pointer;
+}
+.idUser {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width: 100%;
+    height: 40px;
+    margin: 10px 0;
+    padding: 0 10px;
+    border: 1px solid red;
+    text-align: center;
+}
+svg{
+    fill:#ff523b;
 }
 /* Media Queries */
 @media only screen and (max-width: 1070px) {
