@@ -23,11 +23,12 @@
 
 
                                 <input type="submit" value="Check Out" class="btn btn-default" id="checkout_btn"/>
-
+                                <div id="paypal-btn"></div>
 
                                 <br />
                                 <br />
-                                @Html.ActionLink("Go  Back", "Index", "ShoppingCart", new { @class = "btn" }, null)
+                                <a asp-action="Index" asp-controller="Cart">Go back</a>
+
                             </form>
 
                             
@@ -40,7 +41,7 @@
         </div>
     </div>
 
-<div id="paypal-btn"></div>
+
 
 
 @section Scripts {
