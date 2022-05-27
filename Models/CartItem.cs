@@ -16,12 +16,22 @@ namespace FlyBuy.Models
         {
         }
 
-        public CartItem(Product product)
+
+        public CartItem(Product product , int quantity)
         {
             ProductId = product.Id;
             ProductName = product.Name;
+
+            if (quantity == 0)
+            {
+                Quantity = 1;
+            }
+            else
+            {
+                Quantity = quantity;
+            }
+
             Price = product.Price;
-            Quantity = 1;
             Image = product.Image;
         }
     }

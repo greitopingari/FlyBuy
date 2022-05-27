@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="body bodyTable">
+    <h2 class="tbl-h2">@Html.ActionLink("Create New Role", "Create", "Roles", new { @class = " btn-form" })</h2>
+     <div class="table-wrapper">
+        <table class="fl-table" id="#tabela">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model) 
+                {
+                <tr id="productCard@(role.Id)">
+                    <td>@role.Id</td>
+                    <td>@role.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Roles" asp-route-id="@role.Id"><i class="fa-solid fa-pen-to-square"></i></a> 
+                        <a id="@role.Id" class="del-btn"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+     </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+$(function() {
+    $(".del-btn").click(function () {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this role!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) 
+                {
+                    var element = $(this);
+                    var del_id = element.attr("id");
+                    var info = "id=" + del_id;
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("Delete")",
+                        data: {id : del_id},
+                        success: function (data) {
+                            if (data) {
+                                $("#productCard" + del_id).fadeOut();
+                            } else {
+                                alert("Record can't be deleted!");
+                            }
+                        }
+                    });
+                    swal("Role has been deleted!", 
+                    {
+                      icon: "success",
+                    });
+                } 
+                else 
+                {
+                    swal("Record is safe!");
+                }
+            });
+            return false;
+    });
+});
+</script>

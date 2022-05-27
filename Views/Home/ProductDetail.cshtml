@@ -4,7 +4,6 @@
     ViewData["Title"] = "ProductDetail";
 }
 
-
 <div class="backgound" id="background">
     <div class="small-container singleProduct">
         <div  class="row">
@@ -23,8 +22,11 @@
                         <option>Medium</option>
                         <option>Small</option>
                     </select>
-                <input type="number" value="1"/>
-                <a asp-action="Add" asp-controller="Cart" asp-route-id="@Model.Id"><i class="fa-solid fa-cart-plus"></i></a>
+                <form method="post" asp-action="Add" asp-controller="Cart" asp-route-id="@Model.Id">
+                    <input type="number" name="quantity" min="0" max="10"/>
+                    @*<a asp-action="Add" asp-controller="Cart" asp-route-id="@Model.Id"><i class="fa-solid fa-cart-plus"></i></a>*@
+                    <input type="submit" name="Amount"/>
+                </form>
                 <h3>Product details <i class="fa fa-indent"></i></h3>
                 <br />
                 <p>asdf fs fsaef s s g sg s dg sg s g sg  sg s x gs g sdgsgsg
@@ -32,24 +34,6 @@
                 </p>
             </div>
         </div>
-
-        @*<div class="row">
-            
-            @foreach (var item in ViewData["Products"] as List<FlyBuy.Models.Product> )
-            {
-                <div class="col-4">
-                    <a asp-action="ProductDetail" asp-controller="Home" asp-route-id="@item.Id"><img src="/Images/Products/@item.Image"></a>
-                    <h4>@item.Name</h4>
-                    <div class="rating">  
-                            <i class="fa fa-star"></i>
-                    </div>
-                    <p>@item.Price.ToString("C2")</p>
-                    <br />
-                    <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.Id">Add to cart</a>
-                </div>    
-            }
-
-        </div>*@
         
     </div>
 </div>

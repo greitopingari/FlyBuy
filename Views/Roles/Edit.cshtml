@@ -1,0 +1,39 @@
+﻿@model EditRole
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="account-page account-page-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+
+                 <div class="form-container">
+
+                    <div class="form-control">
+                        <form method="post" asp-action="Edit" asp-controller="Roles">
+
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            <label asp-for="Id"></label>                             
+                            <input asp-for="Id" readonly="readonly" class="form-edit">
+
+                            <label asp-for="Name"></label>                              
+                            <input asp-for="Name" class="form-edit">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+
+                            <div class="form-group2 -lg">
+                                <button type="submit" class="btn">Save</button>
+                            </div>
+
+                            <br />
+
+                            <a asp-action="Index">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

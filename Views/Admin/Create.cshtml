@@ -1,0 +1,55 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="account-page account-page-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+
+                 <div class="form-container">
+
+                    <div class="form-control">
+
+                        <form method="post" asp-controller="Admin" asp-action="CreateUserRole">
+
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            
+                            <label>Id:</label>
+                            <input asp-for="Id" readonly="readonly" class="form-edit" />
+                            
+
+                            <label>Username:</label>
+                            <input asp-for="UserName" readonly="readonly" class="form-edit" />
+                            
+                            
+                            <label asp-for="Role"></label>
+
+                            <br />
+                            <br />
+
+                            <select asp-for="Role" class ="form-edit" asp-items="ViewBag.Roles"></select>
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                            
+                            <br />
+                            <br />
+
+                            <div class="form-group2 -lg">
+                                <button type="submit" class="btn">Submit</button>
+                            </div>
+
+                            <br />
+                            <br />
+
+                            <a asp-controller="Admin" asp-action="Index">Go back</a> 
+                           
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

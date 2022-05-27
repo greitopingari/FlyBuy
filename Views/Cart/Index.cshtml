@@ -18,7 +18,7 @@
                 <tr>
                     <td>
                         <div class="cart-info">
-                            <img src="~/Images/Products/@item.Image">
+                            <a asp-action="ProductDetail" asp-controller="Home" asp-route-id="@item.ProductId"><img src="~/Images/Products/@item.Image"></a>
                             <div class="cart">
                                 <p>@item.ProductName</p>
                                 <small>Price : @item.Price.ToString("C2")</small>
