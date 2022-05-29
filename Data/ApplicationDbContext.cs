@@ -18,5 +18,7 @@ namespace FlyBuy.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
+        public DbSet<ContactUs> ContactUs { get; set; }
+
     }
 }

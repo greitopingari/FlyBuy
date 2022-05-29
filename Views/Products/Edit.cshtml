@@ -35,7 +35,8 @@
                                 <label asp-for="Description" class="control-label"></label>
                                 <span asp-validation-for="Description" class="text-danger"></span>
                                 <br />
-                                <input asp-for="Description" class="form-edit" placeholder="Description"/>
+                                <textarea asp-for="Description" cols="4" class="form_teksti creati" placeholder="Product description ..."></textarea>
+                            
                             
                             
                                 <label asp-for="AgeCategory" class="control-label"></label>
@@ -72,7 +73,10 @@
                                 <p>@ViewBag.imgPath</p>
                                 <input type="file"  name="ImageFile" class="form-edit" accept="image/*"  onchange="loadFile(event)"  id="file"/>
                                 <label for="file">Edit product photo <i class="fa-solid fa-image"></i></label>
-                                <span asp-validation-for="ImageFile" class="text-danger"></span>                                               
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>    
+                                
+                                <input asp-for="Exclusive" class="checkBox"/>
+                                <p>Exclusive?</p>
                             </div>
 
                         </form>

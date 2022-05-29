@@ -19,7 +19,7 @@ namespace FlyBuy.Models
         [Display(Name = " Price ")]
         public Decimal Price { get; set; }
 
-        [MaxLength(80, ErrorMessage = "The maximum length must be upto 80 characters only")]
+        [MaxLength(180, ErrorMessage = "The maximum length must be upto 80 characters only")]
         [Display(Name = " Description ")]
         public string? Description { get; set; }
 
@@ -48,5 +48,6 @@ namespace FlyBuy.Models
         [Display(Name =  "Product Category")]
         public int ProductCategoryId { get; set; }
         public virtual ProductCategory? ProductCategory { get; set; }
+        public bool Exclusive { get; set; }
     }
 }

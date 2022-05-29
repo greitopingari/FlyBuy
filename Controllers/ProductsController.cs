@@ -40,8 +40,10 @@ namespace FlyBuy.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,LastUpdated,AgeCategory,Rating,ImageFile,CategoryId,ProductCategoryId")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,LastUpdated,AgeCategory,Rating,ImageFile,CategoryId,ProductCategoryId,Exclusive")] Product product)
         {
+
+
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _HostEnvironment.WebRootPath;
@@ -54,7 +56,6 @@ namespace FlyBuy.Controllers
                 {
                     await product.ImageFile.CopyToAsync(fileSteam);
                 }
-
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -79,6 +80,7 @@ namespace FlyBuy.Controllers
             {
                 return NotFound();
             }
+
             ViewData["CategoryId"] = new SelectList(_context.AgeCategories, "Id", "Name", product.CategoryId);
             ViewData["ProductCategoryId"] = new SelectList(_context.ProductCategories, "Id", "Name", product.ProductCategoryId);
             return View(product);
@@ -87,7 +89,7 @@ namespace FlyBuy.Controllers
        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,LastUpdated,AgeCategory,Rating,ImageFile,CategoryId,ProductCategoryId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,LastUpdated,AgeCategory,Rating,ImageFile,CategoryId,ProductCategoryId,Exclusive")] Product product)
         {
             if (id != product.Id)
             {

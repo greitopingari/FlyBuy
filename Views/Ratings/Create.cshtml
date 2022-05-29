@@ -4,6 +4,8 @@
     ViewData["Title"] = "Create";
 }
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+
 <div class="account-page account-page-2">
     <div class="container">
         <div class="row">
@@ -13,34 +15,38 @@
 
                     <div class="form-btn">
                         <span>Give a review to Fly Buy </span>
+                        <br />
+                        <br />
                     </div>
-
+                    
                     <form asp-action="Create">
 
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-control">
                             <div class="form-group">
-                                @*<label asp-for="Description" class="control-label"></label>*@
-                                <input asp-for="Description" class="form_teksti" />
+                                <textarea asp-for="Description" class="form_teksti" placeholder = "Your opinion about Fly Buy"></textarea>
                                 <span asp-validation-for="Description" class="text-danger"></span>
+                                
                             </div>
-
+                            <br />
                             <div class="form-group">
                                 <label asp-for="Rate" class="control-label"></label>
-                                <div id="rateYo"></div>
+                                <div class="rateYo">
+                                    <div id="rateYo"></div>
+                                </div>
                                 <input asp-for="Rate" class="form-edit" type="hidden" id="rating"/>
                                 <span asp-validation-for="Rate" class="text-danger"></span>
                             </div>
-
+                            <br />
                             <div class="form-group">
                                 <label asp-for="Name" class="control-label"></label>
-                                <input asp-for="Name" class="form-edit" />
+                                <input asp-for="Name" class="form-edit" placeholder="You may leave this  filed empty  ..."/>
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
-
+                            <br />
                             <div class="form-group">
                                 <div class="my-rating"></div>
-                                <input type="submit" value="Create" class="btn btn-primary" />
+                                <input type="submit" value="RATE" class="btn" />
                             </div>
                         </div>
 
@@ -53,32 +59,25 @@
     </div>
 </div>
 
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-
-
 @section Scripts {
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script>
 
         $(function () {
  
             $("#rateYo").rateYo({
-            rating: 0,
-            ratedFill: "#ff523b",
-            maxValue: 5,
-            numStars: 5,
-            starWidth: "30px",
-            halfStar: true,
-            spacing: "3px",
-            onChange:function (rating , rateYoInstance) {
-                $('#rating').val(rating);
-                console.log(rating);
-            }
-          
+                rating: 1,
+                ratedFill: "#ff523b",
+                maxValue: 5,
+                numStars: 5,
+                starWidth: "30px",
+                fullStar: true,
+                spacing: "5px",
+
+                onChange:function (rating , rateYoInstance) {
+                    $('#rating').val(rating);
+                    console.log(rating);
+                }
             });
  
         });
