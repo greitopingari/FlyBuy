@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using FlyBuy.Data;
+﻿using FlyBuy.Data;
 using FlyBuy.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlyBuy.Controllers
 {
@@ -20,13 +15,13 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
-        public IActionResult AgeProducts(int? id )
+        public IActionResult AgeProducts(int? id)
         {
             if (id == null)
             {
                 return View(_context.AgeCategories.ToList());
             }
-            return View(_context.Products.Where(c => c.ProductCategoryId == 3  && c.CategoryId == id).ToList());
+            return View(_context.Products.Where(c => c.CategoryId == 2 && c.ProductCategoryId == id).ToList());
         }
 
 
@@ -36,14 +31,14 @@ namespace FlyBuy.Controllers
             {
                 return View(_context.AgeCategories.ToList());
             }
-            return View(_context.Products.Where(c => c.ProductCategoryId == 2 && c.CategoryId == id).ToList());
+            return View(_context.Products.Where(c => c.CategoryId == 1 && c.ProductCategoryId == id).ToList());
         }
 
         [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Index()
         {
 
-            return _context.AgeCategories != null ? 
+            return _context.AgeCategories != null ?
                           View(await _context.AgeCategories.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.AgeCategories'  is null.");
         }
@@ -121,7 +116,7 @@ namespace FlyBuy.Controllers
         [HttpPost]
         public JsonResult Delete(int? id)
         {
-            var AgeCategories = _context.AgeCategories.Find(id);      
+            var AgeCategories = _context.AgeCategories.Find(id);
             _context.AgeCategories.Remove(AgeCategories);
             _context.SaveChanges();
             return new JsonResult(Ok());
@@ -130,7 +125,7 @@ namespace FlyBuy.Controllers
 
         private bool AgeCategoryExists(int id)
         {
-          return (_context.AgeCategories?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.AgeCategories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

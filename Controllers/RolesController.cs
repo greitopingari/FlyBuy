@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using FlyBuy.Models;
+﻿using FlyBuy.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FlyBuy.Controllers
 {
@@ -68,7 +68,7 @@ namespace FlyBuy.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
                 return View(model);
-            
+
             }
         }
 
@@ -87,7 +87,7 @@ namespace FlyBuy.Controllers
 
         }
 
-        [Authorize(Roles = "Admin,Manager")]
+        //[Authorize(Roles = "Admin,Manager")]
         public IActionResult Create()
         {
             return View();

@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using FlyBuy.Data;
-using FlyBuy.Models;
-using SendGrid;
-using SendGrid.Helpers.Mail;
+﻿using FlyBuy.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlyBuy.Controllers
 {
@@ -25,9 +17,9 @@ namespace FlyBuy.Controllers
         [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Index()
         {
-              return _context.ContactUs != null ? 
-                          View(await _context.ContactUs.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.ContactUs'  is null.");
+            return _context.ContactUs != null ?
+                        View(await _context.ContactUs.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.ContactUs'  is null.");
         }
 
         [Authorize(Roles = "Admin,Manager,Worker")]
@@ -55,24 +47,14 @@ namespace FlyBuy.Controllers
                 };
                 _context.ContactUs.Add(ContactUs);
                 _context.SaveChanges();
-            }    
+            }
 
-            var apiKey = "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";
-            var client = new SendGridClient(apiKey);
-            var from = new EmailAddress(frm_coll["Email"], frm_coll["Name"]);
-            var subject = frm_coll["Subject"];
-            var to = new EmailAddress("memaklevis2@gmail.com");
-            var plainTextContent = frm_coll["Content"];
-            var htmlContent = frm_coll["Content"];
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-            await client.SendEmailAsync(msg);
-
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         private bool ContactUsExists(int id)
         {
-          return (_context.ContactUs?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.ContactUs?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

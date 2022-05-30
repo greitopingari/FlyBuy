@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using FlyBuy.Models;
-using FlyBuy.Data;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using FlyBuy.Areas.Identity.Pages.Account;
+﻿using FlyBuy.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FlyBuy.Controllers
 {
@@ -16,7 +13,7 @@ namespace FlyBuy.Controllers
         public RoleManager<IdentityRole> RoleManager;
         public IEnumerable<IdentityRole> Roles { get; set; }
 
-        
+
         public AdminController(UserManager<ApplicationUser> UserManager, RoleManager<IdentityRole> RoleManager)
         {
             this.UserManager = UserManager;
@@ -43,7 +40,7 @@ namespace FlyBuy.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var user = await UserManager.FindByIdAsync(id);
-           
+
             if (user == null)
             {
                 return BadRequest("User not found");
@@ -89,9 +86,9 @@ namespace FlyBuy.Controllers
         [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public async Task<JsonResult> DeleteAsync(string id)
-        {       
+        {
 
-            ApplicationUser User =  await UserManager.FindByIdAsync(id);
+            ApplicationUser User = await UserManager.FindByIdAsync(id);
 
             if (User != null)
 
