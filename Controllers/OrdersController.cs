@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FlyBuy.Data;
 using FlyBuy.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlyBuy.Controllers
 {
@@ -19,7 +20,7 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
-        // GET: Orders
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Index()
         {
          
@@ -29,6 +30,7 @@ namespace FlyBuy.Controllers
             
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         public JsonResult Delete(int? id)
         {

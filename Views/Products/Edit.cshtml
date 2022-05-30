@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<div class="account-page account-page-2">
+<div class="account-page">
     <div class="container">
         <div class="row row-2">
             <div class="col-2 form-container-2">
@@ -35,13 +35,14 @@
                                 <label asp-for="Description" class="control-label"></label>
                                 <span asp-validation-for="Description" class="text-danger"></span>
                                 <br />
-                                <input asp-for="Description" class="form-edit" placeholder="Description"/>
+                                <textarea asp-for="Description" cols="4" class="form_teksti creati" placeholder="Product description ..."></textarea>
                             
                             
-                                <label asp-for="AgeCategory" class="control-label"></label>
-                                <span asp-validation-for="AgeCategory" class="text-danger"></span>
+                            
+                                <label asp-for="Collection" class="control-label"></label>
+                                <span asp-validation-for="Collection" class="text-danger"></span>
                                 <br />
-                                <input asp-for="AgeCategory" class="form-edit" placeholder="Age category ...."/>              
+                                <input asp-for="Collection" class="form-edit" placeholder="Product collection ...."/>              
 
                                 <label asp-for="Rating" class="control-label"></label>
                                 <span asp-validation-for="Rating" class="text-danger"></span>
@@ -72,7 +73,10 @@
                                 <p>@ViewBag.imgPath</p>
                                 <input type="file"  name="ImageFile" class="form-edit" accept="image/*"  onchange="loadFile(event)"  id="file"/>
                                 <label for="file">Edit product photo <i class="fa-solid fa-image"></i></label>
-                                <span asp-validation-for="ImageFile" class="text-danger"></span>                                               
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>    
+                                
+                                <input asp-for="Exclusive" class="checkBox"/>
+                                <p>Exclusive?</p>
                             </div>
 
                         </form>

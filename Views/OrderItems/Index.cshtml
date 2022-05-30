@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 <div class="body bodyTable">
-    <h2 class="Orders"><a class="btn-form">Orders Details</a></h2>
+    <h2 class="Orders"><a class="btn-form">Orders Items</a></h2>
      <div class="table-wrapper">
         <table class="fl-table" id="#tabela">
             <thead>
@@ -37,7 +37,7 @@
                         @Html.DisplayFor(modelItem => item.Order.CustomerAddress)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Product.AgeCategory)
+                        @Html.DisplayFor(modelItem => item.Product.Collection)
                     </td>
                     <td>
                             @{

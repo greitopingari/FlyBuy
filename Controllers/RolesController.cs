@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FlyBuy.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using FlyBuy.Models;
 
 namespace FlyBuy.Controllers
 {
@@ -15,12 +16,15 @@ namespace FlyBuy.Controllers
             UserManager = userManager;
             RoleManager = roleManager;
         }
+
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Index()
         {
             Roles = RoleManager.Roles;
             return View(Roles);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
@@ -39,6 +43,7 @@ namespace FlyBuy.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditRole model)
@@ -63,10 +68,11 @@ namespace FlyBuy.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
                 return View(model);
-            
+
             }
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public async Task<JsonResult> DeleteAsync(string id)
         {
@@ -81,12 +87,13 @@ namespace FlyBuy.Controllers
 
         }
 
-        
+        //[Authorize(Roles = "Admin,Manager")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public async Task<IActionResult> Create(RoleViewModel model)
         {

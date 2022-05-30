@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using FlyBuy.Data;
+﻿using FlyBuy.Data;
 using FlyBuy.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlyBuy.Controllers
 {
@@ -19,19 +15,41 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
+        public IActionResult AgeProducts(int? id)
+        {
+            if (id == null)
+            {
+                return View(_context.AgeCategories.ToList());
+            }
+            return View(_context.Products.Where(c => c.CategoryId == 2 && c.ProductCategoryId == id).ToList());
+        }
 
+
+        public IActionResult MenAgeProducts(int? id)
+        {
+            if (id == null)
+            {
+                return View(_context.AgeCategories.ToList());
+            }
+            return View(_context.Products.Where(c => c.CategoryId == 1 && c.ProductCategoryId == id).ToList());
+        }
+
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Index()
         {
-              return _context.AgeCategories != null ? 
+
+            return _context.AgeCategories != null ?
                           View(await _context.AgeCategories.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.AgeCategories'  is null.");
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] AgeCategory ageCategory)
@@ -45,6 +63,7 @@ namespace FlyBuy.Controllers
             return View(ageCategory);
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.AgeCategories == null)
@@ -60,7 +79,7 @@ namespace FlyBuy.Controllers
             return View(ageCategory);
         }
 
-        
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] AgeCategory ageCategory)
@@ -93,21 +112,20 @@ namespace FlyBuy.Controllers
             return View(ageCategory);
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         public JsonResult Delete(int? id)
         {
-            var AgeCategories = _context.AgeCategories.Find(id);      
+            var AgeCategories = _context.AgeCategories.Find(id);
             _context.AgeCategories.Remove(AgeCategories);
             _context.SaveChanges();
             return new JsonResult(Ok());
 
         }
 
-
-
         private bool AgeCategoryExists(int id)
         {
-          return (_context.AgeCategories?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.AgeCategories?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FlyBuy.Data;
 using FlyBuy.Models;
 using FlyBuy.SessionConfig;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlyBuy.Controllers
@@ -14,7 +15,7 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
-
+        [AllowAnonymous]
         public IActionResult Index()
         {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart") ?? new List<CartItem>();
@@ -30,6 +31,7 @@ namespace FlyBuy.Controllers
             return View(cartVM);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Add(int id , int quantity)
         {
             Product product = await _context.Products.FindAsync(id);
@@ -58,6 +60,7 @@ namespace FlyBuy.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public IActionResult Decrease(int id)
         {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
@@ -85,6 +88,7 @@ namespace FlyBuy.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         public IActionResult Remove(int id)
         {
             List<CartItem> cart = HttpContext.Session.GetJson<List<CartItem>>("Cart");
@@ -103,7 +107,7 @@ namespace FlyBuy.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [AllowAnonymous]
         public IActionResult Clear()
         {
             HttpContext.Session.Remove("Cart");
@@ -113,7 +117,7 @@ namespace FlyBuy.Controllers
             return Ok();
         }
 
-
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult ProccedToCheckout()
         {
@@ -122,6 +126,7 @@ namespace FlyBuy.Controllers
             return View("CheckOutCompleted");
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult ProccedToCheckout(IFormCollection frm_coll)
         {
@@ -155,7 +160,7 @@ namespace FlyBuy.Controllers
             return RedirectToAction("ThankYou");
         }
 
-
+        [AllowAnonymous]
         public IActionResult ThankYou()
         {
             return View();

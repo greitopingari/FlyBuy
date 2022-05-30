@@ -13,13 +13,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/bootstrap.css" integrity="sha512-eSjlj23qCNm7hmEQiXiJGCxLVT3weZ47TdIESCNFm8LwNDBtmRAbdDXwkKLLA5HPQIR1yl9JYO0wQG6gIPJoRQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     
+
+
 </head>
 <body>
-    
-    <div  class="free-delivery">
-        <h2>FREE DELIVERY in AL on all orders over €60 & FREE worldwide over €275</h2>
-    </div>
 
      <div class="backgroundHeader">
 
@@ -33,58 +33,34 @@
                     <div class="dropdown">
                         <a class="dropbtn"><p>WOMENS</p><i class="fa-solid fa-chevron-right"></i></a>
                         <div class="dropdown-content">
-                            <a>HOODIES</a>
-                            <a>JOGGERS</a>
-                            <a>SHORTS</a>
-                            <a>T-SHIRTS</a>
-                            <a>VEST TOPS</a>
-                            <a>SWIMWEAR</a>
-                            <a>ACCESSORIES</a>
+                            <a asp-action="AgeProducts"  asp-controller="AgeCategories" asp-route-id="1">JOGGERS</a>
+                            <a asp-action="AgeProducts"  asp-controller="AgeCategories" asp-route-id="2">ACCESSORIES</a>
+                            <a asp-action="AgeProducts"  asp-controller="AgeCategories" asp-route-id="3">HOODIES</a>
+                            <a asp-action="AgeProducts"  asp-controller="AgeCategories" asp-route-id="4">SHORTS</a>
+                            <a asp-action="AgeProducts"  asp-controller="AgeCategories" asp-route-id="5">T-SHIRTS</a>
+                            <a asp-action="AgeProducts"  asp-controller="AgeCategories" asp-route-id="6">VEST TOPS</a>
+                            <a asp-action="AgeProducts"  asp-controller="AgeCategories" asp-route-id="7">SWIMWEAR</a>
                         </div>
                     </div>
 
                     <div class="dropdown">
                         <a class="dropbtn"><p>MENS</p><i class="fa-solid fa-chevron-right"></i></a>
                         <div class="dropdown-content">
-                            <a>HOODIES</a>
-                            <a>JOGGERS</a>
-                            <a>SHORTS</a>
-                            <a>T-SHIRTS</a>
-                            <a>VEST TOPS</a>
-                            <a>SWIMWEAR</a>
-                            <a>ACCESSORIES</a>
+                            <a asp-action="MenAgeProducts"  asp-controller="AgeCategories" asp-route-id="1">JOGGERS</a>
+                            <a asp-action="MenAgeProducts"  asp-controller="AgeCategories" asp-route-id="2">ACCESSORIES</a>
+                            <a asp-action="MenAgeProducts"  asp-controller="AgeCategories" asp-route-id="3">HOODIES</a>
+                            <a asp-action="MenAgeProducts"  asp-controller="AgeCategories" asp-route-id="4">SHORTS</a>
+                            <a asp-action="MenAgeProducts"  asp-controller="AgeCategories" asp-route-id="5">T-SHIRTS</a>
+                            <a asp-action="MenAgeProducts"  asp-controller="AgeCategories" asp-route-id="6">VEST TOPS</a>
+                            <a asp-action="MenAgeProducts"  asp-controller="AgeCategories" asp-route-id="7">SWIMWEAR</a>
                         </div>
                     </div>
 
-                    <div class="dropdown">
-                        <a class="dropbtn"><p>KIDS</p><i class="fa-solid fa-chevron-right"></i></a>
-                        <div class="dropdown-content">
-                            <a>HOODIES</a>
-                            <a>JOGGERS</a>
-                            <a>SHORTS</a>
-                            <a>T-SHIRTS</a>
-                            <a>VEST TOPS</a>
-                            <a>SWIMWEAR</a>
-                            <a>ACCESSORIES</a>
-                        </div>
-                    </div>
-
-                    <div class="dropdown">
-                        <a class="dropbtn"><p>ACCESSORIES</p><i class="fa-solid fa-chevron-right"></i></a>
-                        <div class="dropdown-content">
-                            <a>BAGS</a>
-                            <a>CAPS</a>
-                            <a>SOCKS</a>
-                            <a>WATCH</a>
-                            <a>GLASSES</a>
-                        </div>
-                    </div>
 
                     <div class="dropdown">
                         <a class="dropbtn"><p>ABOUT</p><i class="fa-solid fa-chevron-right"></i></a>
                         <div class="dropdown-content">
-                            <a>THE PURPOSE</a>
-                            <a>ABOUT FLYBUY</a>
+                            <a asp-action="Create" asp-controller="Ratings">RATE US</a>
                         </div>
                     </div>
 
@@ -95,43 +71,24 @@
                 <nav>
 
                     <ul id="MenuItems2">
-                        @*<li><input type="text" placeholder="Search" class="input-box" id="search-bar"></li>*@
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li>@Html.ActionLink("Age Categories", "Index", "AgeCategories")</li>
-                            <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
-                            <li>@Html.ActionLink("Contact", "Index", "ContactUs")</li>
-                            <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
-                            <li>@Html.ActionLink("Ratings", "Index", "Ratings")</li>
-                            <li>@Html.ActionLink("Products", "Index", "Products")</li>
-                            <li>@Html.ActionLink("Home", "NewHomePage", "Home")</li>
-                            <li>@Html.ActionLink("All Products", "AllProducts", "Products")</li>
-                            <li>@Html.ActionLink("Log Off", "FirstPage", "Home")</li>
-                        }
-                        else if (User.IsInRole("User"))
-                        {
-                            <li>@Html.ActionLink("Home", "NewHomePage", "Home")</li>
-                            <li>@Html.ActionLink("All Products", "AllProducts", "Products")</li>
-                            <li>@Html.ActionLink("Log Off", "FirstPage", "Home")</li>
-                            <li>@Html.ActionLink("Rate Our Page", "Create", "Ratings")</li>
-                        }
-
-                        @if (User.IsInRole("Users"))
-                        {
-                            <li>@Html.ActionLink("Rate Page", "Create", "Ratings")</li>
-                            <li class="small-screen-hide"><span>|</span></li>
-                            <li><i class="fa fa-user" @*title="@System.Web.HttpContext.Current.User.Identity.Name"*@></i></li>
-                            <li> <a href="/ShoppingCart/Index"><i class="fas fa-shopping-cart" title="Shopping cart"></i> </a> </li>
-                            <li class="small-screen-hide"><i id="night" class="far fa-moon nightV2" title="Night"></i></li>
-                            <li class="small-screen-hide"><i id="day" class="fas fa-sun dayV2" title="Day"></i></li>
-                            @*<li class="small-screen-hide"><i class="fa fa-search" title="Search" id="search"></i></li>*@
-                        }
 
                         <li class="dropdown">
                             <a class="dropbtn"><i class="fa-solid fa-user"></i></a>
                             <div class="dropdown-content">
+                               
                                 @if (User.Identity.IsAuthenticated)
                                 {
+                                     @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-action="Index" asp-controller="Admin">ADMIN</a>
+                                        <a asp-action="Index" asp-controller="AgeCategories">AGE CATEGORIES</a>
+                                        <a asp-action="Index" asp-controller="ContactUs">CONTACT US</a>
+                                        <a asp-action="Index" asp-controller="OrderItems">ORDER ITEMS</a>
+                                        <a asp-action="Index" asp-controller="Orders">ORDERS</a>
+                                        <a asp-action="Index" asp-controller="ProductCategories">PRODUCT CATEGORIES</a>
+                                        <a asp-action="Index" asp-controller="Products">PRODUCT</a>
+                                        <a asp-action="Index" asp-controller="Ratings">RATINGS</a>                   
+                                    }
                                     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
                                         <button type="submit">LOG OFF</button>
                                     </form>
@@ -142,6 +99,7 @@
                                     <a asp-area="Identity" asp-page="/Account/Login">LOGIN</a>
                                     <a asp-area="Identity" asp-page="/Account/Register">REGISTER</a>
                                 }
+
                                 
                             </div>
                         </li>
@@ -175,8 +133,12 @@
                     </div>
                 </div>
                 <div class="footer-col-2">
-                    <h1 class="logo">FLY <span>BUY</span></h1>
-                    <p>Our Purpose Is To Sustainably Make Pleasure and Benefits of Sports Accessible to the Many.</p>
+                    <h3>Sponsors</h3>
+                    <p>Our Purpose Is To Sustainably Make Pleasure and Benefits all customers desires.</p>
+                    <div class="sponsors">
+                        <img src="~/Images/Footer/gucci-logo-png-transparent-gucci-logo-images-836689.png" />
+                        <img src="~/Images/Footer/aramnni.png" />   
+                    </div>
                 </div>
                 <div class="footer-col-3">
                     <h3>Follow Us</h3>
@@ -189,7 +151,7 @@
                 </div>
             </div>
             <hr id="lineV2">
-            <p class="copyright">Copyright 2022</p>
+            <p class="copyright">Copyrights © 2022</p>
         </div>
     </div>
      
@@ -214,55 +176,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FlyBuy</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
-    *@
-
-
-    @* <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - FlyBuy - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@

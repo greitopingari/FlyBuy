@@ -37,10 +37,13 @@
                         @Html.DisplayNameFor(model => model.Rating)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.AgeCategory)
+                        @Html.DisplayNameFor(model => model.Collection)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ProductCategory.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Exclusive)
                     </th>
                     <th></th>
                 </tr>
@@ -59,7 +62,8 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        <textarea cols="30" rows="5" readonly style="cursor:default">@item.Description</textarea>
+                       @* @Html.DisplayFor(modelItem => item.Description)*@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.LastUpdated)
@@ -71,15 +75,17 @@
                         @Html.DisplayFor(modelItem => item.Rating)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.AgeCategory)
+                        @Html.DisplayFor(modelItem => item.Collection)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductCategory.Name)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Exclusive)
+                    </td>
+                    <td>
                         <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pen-to-square"></i></a> |
                         <a class="del-btn" id="@item.Id"><i class="far fa-trash-alt"></i></a>
-                        <a asp-action="Add"  asp-controller="Cart" asp-route-id="@item.Id">Add to cart</a>
                     </td>
                 </tr>
                 }

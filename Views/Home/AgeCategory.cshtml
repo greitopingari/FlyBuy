@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Product>
+
+<div class="backgound" id="background">
+
+    <div class="small-container small-container-homePage ">
+
+       
+        <h2 class="title">Products</h2>
+        
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-4">
+                    <a asp-action="ProductDetail" asp-controller="Home" asp-route-id="@item.Id"><img src="/Images/Products/@item.Image"></a>
+                    <h4>@item.Name</h4>
+                    <p>@item.Price.ToString("C2")</p>
+                    <br />
+                    <div class="cartIcons">
+                        <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.Id"><i class="fa-solid fa-bag-shopping"></i></a>
+                        <a asp-action="Add" asp-controller="WishList" asp-route-id="@item.Id"><i class="fa-solid fa-heart"></i></a>
+                    </div>
+                </div>    
+            }
+
+        </div>
+    </div>
+</div>

@@ -26,13 +26,12 @@
                                 <input asp-for="Price" class="form-edit" placeholder="Product price ...">
                                 <span asp-validation-for="Price" class="text-danger"></span>
 
-                            
-                                <input asp-for="Description" class="form-edit" placeholder="Product description ..."/>
+                                
+                                <textarea asp-for="Description" class="form_teksti creati" placeholder="Product description ..."></textarea>
                                 <span asp-validation-for="Description" class="text-danger"></span>
-
                             
-                                <input asp-for="AgeCategory" class="form-edit" placeholder="Product age category ..."/>
-                                <span asp-validation-for="AgeCategory" class="text-danger"></span>
+                                <input asp-for="Collection" class="form-edit" placeholder="Product collection ..."/>
+                                <span asp-validation-for="Collection" class="text-danger"></span>
 
                             
                                 <input asp-for="Rating" class="form-edit" placeholder="Product rating ..."/>
@@ -48,6 +47,8 @@
 
                                 <select asp-for="ProductCategoryId" class ="form-edit" asp-items="ViewBag.ProductCategoryId"></select>
 
+
+
                                  <input type="submit" value="Create" class="btn btn-primary" onclick="test(); return false;"/>
 
                                  <a asp-action="Index">Back to List</a>
@@ -58,6 +59,8 @@
                                 <input asp-for="ImageFile" class="form-edit" accept="image/*" onchange="loadFile(event)"  id="file" required/>
                                 <label id="label" for="file">Upload product photo <i class="fa-solid fa-image"></i></label>
                                 <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                <input asp-for="Exclusive" class="checkBox"/>
+                                <p>Exclusive?</p>
                             </div>
 
                         </form>
