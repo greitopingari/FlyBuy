@@ -1,6 +1,7 @@
 ﻿using FlyBuy.Data;
 using FlyBuy.Models;
 using FlyBuy.SessionConfig;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlyBuy.Controllers
@@ -16,6 +17,7 @@ namespace FlyBuy.Controllers
 
         const string wishListKey = "WishList";
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             List<Product> Product = HttpContext.Session.GetJson<List<Product>>(wishListKey) ?? new List<Product>();
@@ -23,6 +25,7 @@ namespace FlyBuy.Controllers
             return View(Product);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Add(int id)
         {
             Product product = await _context.Products.FindAsync(id);
@@ -45,6 +48,7 @@ namespace FlyBuy.Controllers
             return Redirect(Request.Headers["Referer"].ToString());
         }
 
+        [AllowAnonymous]
         public IActionResult Remove(int id)
         {
             List<Product> Product = HttpContext.Session.GetJson<List<Product>>(wishListKey) ?? new List<Product>();

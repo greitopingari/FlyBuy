@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FlyBuy.Data;
 using FlyBuy.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlyBuy.Controllers
 {
@@ -19,7 +20,7 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
-
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Index()
         {
               return _context.AgeCategories != null ? 
@@ -27,11 +28,13 @@ namespace FlyBuy.Controllers
                           Problem("Entity set 'ApplicationDbContext.AgeCategories'  is null.");
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] AgeCategory ageCategory)
@@ -45,6 +48,7 @@ namespace FlyBuy.Controllers
             return View(ageCategory);
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.AgeCategories == null)
@@ -60,7 +64,7 @@ namespace FlyBuy.Controllers
             return View(ageCategory);
         }
 
-        
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] AgeCategory ageCategory)
@@ -93,6 +97,7 @@ namespace FlyBuy.Controllers
             return View(ageCategory);
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         public JsonResult Delete(int? id)
         {
@@ -102,8 +107,6 @@ namespace FlyBuy.Controllers
             return new JsonResult(Ok());
 
         }
-
-
 
         private bool AgeCategoryExists(int id)
         {

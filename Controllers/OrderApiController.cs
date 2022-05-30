@@ -1,5 +1,6 @@
 ﻿using FlyBuy.Data;
 using FlyBuy.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlyBuy.Controllers
@@ -15,7 +16,7 @@ namespace FlyBuy.Controllers
         }
 
         //Filter by Quarter
-
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpGet]
         public IActionResult Index()
         {

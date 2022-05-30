@@ -85,6 +85,7 @@
                         <div class="dropdown-content">
                             <a>THE PURPOSE</a>
                             <a>ABOUT FLYBUY</a>
+                            <a asp-action="Create" asp-controller="Ratings">RATE US</a>
                         </div>
                     </div>
 
@@ -99,19 +100,20 @@
                         <li class="dropdown">
                             <a class="dropbtn"><i class="fa-solid fa-user"></i></a>
                             <div class="dropdown-content">
-                                 @if (User.IsInRole("Admin"))
-                                {
-                                    @Html.ActionLink("Age Categories", "Index", "AgeCategories");
-                                    @Html.ActionLink("Categories", "Index", "Categories");
-                                    @Html.ActionLink("Orders", "Index", "Orders");
-                                    @Html.ActionLink("Ratings", "Index", "Ratings");    
-                                    @Html.ActionLink("Products", "Index", "Products");
-                                    @Html.ActionLink("All Products", "AllProducts", "Products");
-                                }
+                               
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    
-
+                                     @if (User.IsInRole("Admin"))
+                                    {
+                                        <a asp-action="Index" asp-controller="Admin">ADMIN</a>
+                                        <a asp-action="Index" asp-controller="AgeCategories">AGE CATEGORIES</a>
+                                        <a asp-action="Index" asp-controller="ContactUs">CONTACT US</a>
+                                        <a asp-action="Index" asp-controller="OrderItems">ORDER ITEMS</a>
+                                        <a asp-action="Index" asp-controller="Orders">ORDERS</a>
+                                        <a asp-action="Index" asp-controller="ProductCategories">PRODUCT CATEGORIES</a>
+                                        <a asp-action="Index" asp-controller="Products">PRODUCT</a>
+                                        <a asp-action="Index" asp-controller="Ratings">RATINGS</a>                   
+                                    }
                                     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
                                         <button type="submit">LOG OFF</button>
                                     </form>

@@ -4,9 +4,8 @@ using FlyBuy.Models;
 using FlyBuy.Data;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using FlyBuy.Areas.Identity.Pages.Account; 
-
-
+using FlyBuy.Areas.Identity.Pages.Account;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlyBuy.Controllers
 {
@@ -17,13 +16,15 @@ namespace FlyBuy.Controllers
         public RoleManager<IdentityRole> RoleManager;
         public IEnumerable<IdentityRole> Roles { get; set; }
 
-
+        
         public AdminController(UserManager<ApplicationUser> UserManager, RoleManager<IdentityRole> RoleManager)
         {
             this.UserManager = UserManager;
             this.RoleManager = RoleManager;
         }
 
+
+        [Authorize(Roles = "Admin,Manager")]
         public IActionResult Index()
         {
             var users = UserManager.Users.Select(user => new UserViewModel()
@@ -37,26 +38,28 @@ namespace FlyBuy.Controllers
             return View(users);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
             var user = await UserManager.FindByIdAsync(id);
-
-
+           
             if (user == null)
             {
                 return BadRequest("User not found");
             }
+
             var model = new UserViewModel
             {
                 Id = user.Id,
                 Email = user.Email,
                 UserName = user.UserName,
-                BirthDate = user.BirthDate
+                BirthDate = user.BirthDate,
             };
             return View(model);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public async Task<IActionResult> Edit(UserViewModel model)
         {
@@ -83,9 +86,10 @@ namespace FlyBuy.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public async Task<JsonResult> DeleteAsync(string id)
-        {
+        {       
 
             ApplicationUser User =  await UserManager.FindByIdAsync(id);
 
@@ -99,6 +103,7 @@ namespace FlyBuy.Controllers
 
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpGet]
         public async Task<ActionResult> Create(string id)
         {
@@ -116,6 +121,7 @@ namespace FlyBuy.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateUserRole(UserViewModel u)

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FlyBuy.Data;
 using FlyBuy.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlyBuy.Controllers
 {
@@ -19,7 +20,8 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
-        // GET: OrderItems
+
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.OrderItems.Include(o => o.Order).Include(o => o.Product);

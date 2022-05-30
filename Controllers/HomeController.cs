@@ -9,6 +9,7 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlyBuy.Controllers
 {
@@ -24,6 +25,7 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             ViewData["Exlusive"] = _context.Products.Where(p => p.Exclusive == true).Take(2).OrderBy(p => p.LastUpdated).ToList();
@@ -32,6 +34,7 @@ namespace FlyBuy.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> ProductDetail(int? id)
         {
             Random random = new Random();
@@ -43,20 +46,15 @@ namespace FlyBuy.Controllers
 
            var product = await _context.Products.Include(p => p.Category).FirstOrDefaultAsync(m => m.Id == id);
 
-           var a  = _context.Products.Where(m => m.ProductCategoryId == product.CategoryId).ToList();
-           ViewBag.Suggestion = a.OrderBy(x => random.Next()).Take(4);
-
             if (product == null)
             {
                 return NotFound();
             }
 
-            return View(product);
-        }
+            var a = await _context.Products.Where(m => m.ProductCategoryId == product.CategoryId).ToListAsync();
+            ViewBag.Suggestion = a.OrderBy(x => random.Next()).Take(4);
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(product);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FlyBuy.Data;
 using FlyBuy.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlyBuy.Controllers
 {
@@ -22,14 +23,14 @@ namespace FlyBuy.Controllers
             _HostEnvironment = hostEnvironment;
         }
 
-       
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Products.Include(p => p.Category).Include(p => p.ProductCategory);
             return View(await applicationDbContext.ToListAsync());
         }
 
-      
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.AgeCategories, "Id", "Name");
@@ -37,7 +38,7 @@ namespace FlyBuy.Controllers
             return View();
         }
 
-        
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,LastUpdated,AgeCategory,Rating,ImageFile,CategoryId,ProductCategoryId,Exclusive")] Product product)
@@ -65,7 +66,7 @@ namespace FlyBuy.Controllers
             return View(product);
         }
 
-       
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Products == null)
@@ -86,7 +87,7 @@ namespace FlyBuy.Controllers
             return View(product);
         }
 
-       
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,LastUpdated,AgeCategory,Rating,ImageFile,CategoryId,ProductCategoryId,Exclusive")] Product product)
@@ -147,6 +148,7 @@ namespace FlyBuy.Controllers
             return View(product);
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         public JsonResult Delete(int? id)
         {

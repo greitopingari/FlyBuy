@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FlyBuy.Data;
 using FlyBuy.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlyBuy.Controllers
 {
@@ -19,6 +20,7 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Index()
         {
               return _context.Ratings != null ? 
@@ -26,12 +28,13 @@ namespace FlyBuy.Controllers
                           Problem("Entity set 'ApplicationDbContext.Ratings'  is null.");
         }
 
-        
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Description,Rate,Name,Time")] Rating rating)
@@ -49,6 +52,7 @@ namespace FlyBuy.Controllers
             return RedirectToAction("Index" , "Home");
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         public JsonResult DeleteAsync(int id)
         {

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using FlyBuy.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
 //var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");;
 
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -70,17 +71,15 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseStatusCodePagesWithReExecute("/Error/{0}");
 }
 else
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+    app.UseStatusCodePagesWithReExecute("/Error/{0}");
 }
-
-
-
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

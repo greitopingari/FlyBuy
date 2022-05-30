@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FlyBuy.Data;
 using FlyBuy.Models;
 using System.Web.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FlyBuy.Controllers
 {
@@ -20,7 +21,7 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
-        // GET: ProductCategories
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Index()
         {
               return _context.ProductCategories != null ? 
@@ -28,14 +29,13 @@ namespace FlyBuy.Controllers
                           Problem("Entity set 'ApplicationDbContext.ProductCategories'  is null.");
         }
 
-
-        // GET: ProductCategories/Create
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public IActionResult Create()
         {
             return View();
         }
 
-
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         public JsonResult Create(ProductCategory productCategory)
         {
@@ -49,7 +49,7 @@ namespace FlyBuy.Controllers
         }
 
 
-        // GET: ProductCategories/Edit/5
+        [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.ProductCategories == null)
@@ -65,7 +65,7 @@ namespace FlyBuy.Controllers
             return View(productCategory);
         }
 
-
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] ProductCategory productCategory)
@@ -98,6 +98,7 @@ namespace FlyBuy.Controllers
             return View(productCategory);
         }
 
+        [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         public JsonResult Delete(int? id)
         {
