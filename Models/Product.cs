@@ -28,7 +28,7 @@ namespace FlyBuy.Models
         public DateTime LastUpdated { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage = "This  field is required")]
-        public string? AgeCategory { get; set; }
+        public string? Collection { get; set; }
 
         [Required(ErrorMessage = "Rating is required")]
         [Display(Name = " Rating ")]

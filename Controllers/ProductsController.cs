@@ -41,7 +41,7 @@ namespace FlyBuy.Controllers
         [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,LastUpdated,AgeCategory,Rating,ImageFile,CategoryId,ProductCategoryId,Exclusive")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,LastUpdated,Collection,Rating,ImageFile,CategoryId,ProductCategoryId,Exclusive")] Product product)
         {
 
 
@@ -90,7 +90,7 @@ namespace FlyBuy.Controllers
         [Authorize(Roles = "Admin,Manager,Worker")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,LastUpdated,AgeCategory,Rating,ImageFile,CategoryId,ProductCategoryId,Exclusive")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Description,LastUpdated,Collection,Rating,ImageFile,CategoryId,ProductCategoryId,Exclusive")] Product product)
         {
             if (id != product.Id)
             {

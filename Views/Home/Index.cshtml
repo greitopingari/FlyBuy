@@ -13,10 +13,13 @@
             <p>
                 Millions of the world's most successful brands trust FlyBuy to sell, ship and process payments anywhere.
             </p>
-            <a href="/Account/Register" class="btn">&#8592; Shop Mens </a>
-            <a href="/Account/Register" class="btn">Shop Womens &#8594;</a>
+            @foreach (var item in ViewData["AgeCategory"] as  List<AgeCategory>)
+                {
+                    <a asp-action="AgeCategory" asp-controller="Home" asp-route-id="@item.Id" class="btn">Shop @item.Name</a>
+                }
+            @*<a asp-action="ManCategory" asp-controller="Home" class="btn" name="category">&#8592; Shop Mens </a>
+            <a asp-action="DisplayByAgeCategory" asp-controller="Home" class="btn">Shop Womens &#8594;</a>*@
         </div>
-
     </div>
 
     <div id="slider">
@@ -40,7 +43,16 @@
 
         <h2 class="title">Latest Products</h2>
 
-        <div class="row">
+        <div class="row"
+            data-aos="fade"
+            data-aos-offset="200"
+            data-aos-delay="50"
+            data-aos-duration="500"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"
+            data-aos-once="true"
+            data-aos-anchor-placement="top-center"    
+        >
 
             @foreach (var item in ViewData["LatestProducts"] as  List<Product>)
             {
@@ -49,7 +61,42 @@
                     <h4>@item.Name</h4>
                     <p>@item.Price.ToString("C2")</p>
                     <br />
-                    <div class="cartIcons">
+                    <div class="cartIcons">                      
+                        <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.Id"><i class="fa-solid fa-bag-shopping"></i></a>
+                        <a asp-action="Add" asp-controller="WishList" asp-route-id="@item.Id"><i class="fa-solid fa-heart"></i></a>
+                    </div>
+                </div>    
+            }
+
+        </div>
+    </div>
+</div>
+
+<div class="backgound" id="background">
+
+    <div class="small-container small-container-homePage ">
+
+        <h2 class="title">Summer Collection</h2>
+
+        <div class="row"
+            data-aos="fade"
+            data-aos-offset="200"
+            data-aos-delay="50"
+            data-aos-duration="500"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"
+            data-aos-once="true"
+            data-aos-anchor-placement="top-center"    
+        >
+
+            @foreach (var item in ViewData["SummerCollection"] as  List<Product>)
+            {
+                <div class="col-4">
+                    <a asp-action="ProductDetail" asp-controller="Home" asp-route-id="@item.Id"><img src="/Images/Products/@item.Image"></a>
+                    <h4>@item.Name</h4>
+                    <p>@item.Price.ToString("C2")</p>
+                    <br />
+                    <div class="cartIcons">                      
                         <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.Id"><i class="fa-solid fa-bag-shopping"></i></a>
                         <a asp-action="Add" asp-controller="WishList" asp-route-id="@item.Id"><i class="fa-solid fa-heart"></i></a>
                     </div>
@@ -69,7 +116,15 @@
             {
                 if(item.Exclusive == true)
                 {
-                    <div class="row excluscive">
+                    <div class="row excluscive"
+                        data-aos="fade-left"
+                        data-aos-offset="200"
+                        data-aos-delay="50"
+                        data-aos-duration="500"
+                        data-aos-easing="ease-in-out"
+                        data-aos-mirror="true"
+                        data-aos-once="true"
+                        data-aos-anchor-placement="top-center">
 
                         <div class="col-2" id="col-2-position">
                             <img src="~/Images/Products/@item.Image" class="offer-img">
@@ -112,7 +167,16 @@
     <div class="testimonial">
         <div class="small-container">
             <h2 class="title">Ratings</h2>
-            <div class="row">
+            <div class="row"
+                data-aos="fade-right"
+                data-aos-offset="100"
+                data-aos-delay="50"
+                data-aos-duration="500"
+                data-aos-easing="ease-in-out"
+                data-aos-mirror="true"
+                data-aos-once="true"
+                data-aos-anchor-placement="top-center"    
+            >
 
                 @foreach (var item in ViewData["Rating"] as List<Rating>)
                 {
@@ -138,7 +202,16 @@
 
 <div class="email">
     <h2 class="title">Contact </h2>
-    <div class="kontakti">
+    <div class="kontakti"
+        data-aos="fade-up"
+        data-aos-offset="200"
+        data-aos-delay="50"
+        data-aos-duration="500"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true"
+        data-aos-once="true"
+        data-aos-anchor-placement="top-center"    
+    >
         <div class="kontakti_pjesa2">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.563225261373!2d19.821690215345004!3d41.31836450823426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135031d53942bf4b%3A0xc29b959022f4c53!2sAir%20Albania%20Stadium!5e0!3m2!1sen!2s!4v1622419139206!5m2!1sen!2s" width="100%" height="auto" style="border:0;" allowfullscreen="" frameborder="0" aria-hidden="false" tabindex="0"></iframe>
         </div>
@@ -165,3 +238,27 @@
     </div>
 </div>
         
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init
+    ({
+         disable: false,
+          startEvent: 'DOMContentLoaded',
+          initClassName: 'aos-init',
+          animatedClassName: 'aos-animate',
+          useClassNames: false,
+          disableMutationObserver: false,
+          debounceDelay: 50, 
+          throttleDelay: 99, 
+  
+
+
+          offset: 120, 
+          delay: 0, 
+          duration: 400,
+          easing: 'ease', 
+          once: false, 
+          mirror: false, 
+          anchorPlacement: 'top-bottom', 
+    });
+</script>

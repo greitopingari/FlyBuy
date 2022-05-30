@@ -30,8 +30,21 @@ namespace FlyBuy.Controllers
         {
             ViewData["Exlusive"] = _context.Products.Where(p => p.Exclusive == true).Take(2).OrderBy(p => p.LastUpdated).ToList();
             ViewData["Rating"] = _context.Ratings.OrderBy(t => t.Time).Take(4).ToList();
-            ViewData["LatestProducts"] = _context.Products.OrderByDescending(P => P.LastUpdated).ToList();
+            ViewData["LatestProducts"] = _context.Products.Where(p => p.Exclusive == false  &&  p.Collection != "Summer").OrderByDescending(P => P.LastUpdated).Take(8).ToList();
+            ViewData["AgeCategory"] = _context.AgeCategories.Where(t => t.Name == "Women" || t.Name == "Men").ToList();
+            ViewData["SummerCollection"] = _context.Products.Where(p => p.Collection == "Summer").Take(4).ToList();
             return View();
+        }
+
+        public IActionResult AgeCategory(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var displayByCategory = _context.Products.Where(c => c.Category.Id == id);          
+            return View(displayByCategory);
         }
 
         [AllowAnonymous]

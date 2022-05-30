@@ -20,10 +20,30 @@ namespace FlyBuy.Controllers
             _context = context;
         }
 
+        public IActionResult AgeProducts(int? id )
+        {
+            if (id == null)
+            {
+                return View(_context.AgeCategories.ToList());
+            }
+            return View(_context.Products.Where(c => c.ProductCategoryId == 3  && c.CategoryId == id).ToList());
+        }
+
+
+        public IActionResult MenAgeProducts(int? id)
+        {
+            if (id == null)
+            {
+                return View(_context.AgeCategories.ToList());
+            }
+            return View(_context.Products.Where(c => c.ProductCategoryId == 2 && c.CategoryId == id).ToList());
+        }
+
         [Authorize(Roles = "Admin,Manager,Worker")]
         public async Task<IActionResult> Index()
         {
-              return _context.AgeCategories != null ? 
+
+            return _context.AgeCategories != null ? 
                           View(await _context.AgeCategories.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.AgeCategories'  is null.");
         }
