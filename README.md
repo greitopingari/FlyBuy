@@ -1,6 +1,6 @@
 # FlyBuy
 This project is an upgraded version of previous one 
-Repo : https://github.com/KlevisMema/FlyBuy 
+https://github.com/KlevisMema/FlyBuy  
 made with asp.net mvc. The technology used for this project is asp.net core 6.0, it has all the functionalities that the previous project has but it has more featues such as:
 
 - The user now can add a product in the wish list
