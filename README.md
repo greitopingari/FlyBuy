@@ -13,7 +13,7 @@ When the user register for the first time he needs to confirm his email adress t
 
 - Error handling, this means that when a user tries to access a resource that it does not exists it will be shown a 404 message
 
-- PayPal integration when he checks out
+- PayPal integration when user checks out
 
 - Admin besides the functionalities that derives from previous project, now it can manage roles like add a role, delete e role or delete e user
 
